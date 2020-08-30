@@ -4,7 +4,10 @@ import Content.FieldState;
 import Content.Ship;
 import DataInput.Input;
 import GameLogic.ShipArrangement;
+import GameLogic.Shot;
 import GameView.FieldsView;
+
+import java.util.Scanner;
 
 // Загрузчик игры. Включает в себя заданные игровые опции (по умолчанию (поля 10 на 10, первый ходит пользователь) или нет)
 public class GameRunner {
@@ -22,39 +25,54 @@ public class GameRunner {
     public void startNewGame(){
         System.out.println("\t\t\t" +
                 "~~~~~  W E L C O M E  T O  T H E  S E A  B A T T L E  G A M E  ~~~~~\n");
-        this.gameStatus = GameState.IN_GAME;
-        FieldsView.printStartFields();
+        gameStatus = GameState.IN_GAME;
+        FieldsView.printNewFields(gameOptions.boards[0], gameOptions.boards[1]);
         if (!gameOptions.isRandomFirstMove()) {
             System.out.println("Arrange your ships, please.\n" +
                     "| Please, enter ships one by one.\n");
             // Блок расстановки кораблей
-            while (true) { // TODO: подумать над условием выхода из цикла
+            while (!gameOptions.shipsConfig.equals(gameOptions.currentNumberOfShips)) {
+                // TODO: подумать над условием выхода из цикла
                 Ship ship = Input.getShip(gameOptions);
-                for (int i = ship.getX(); i <= ship.getX() + ship.getDx(); i++) {
-                    for (int j = ship.getY(); j <= ship.getY() + ship.getDy(); j++) {
-                        ShipArrangement.putShip(ship, gameOptions);
-                    }
-                }
+                ShipArrangement.putShip(ship, gameOptions);
                 // TODO: Зачем в этих манипуляциях ship ?
                 FieldsView.printNewFields(gameOptions.boards[0], gameOptions.boards[1]);
             }
-            // вызываем метод расстановки кораблей юзера, который вызывает метод сканирования ввода -> обновляем состояния, поля
+            System.out.println("Your ships are arranged!");
+            System.out.println("Opponents ships arrangement...");
             // вызываем метод авторасстановки кораблей компа
+            // Автогенерация и инициализация полей компа(boards[1])
+            // initOpponentField() - внутри вызываются  функции рандомизации
         } else {
             // наоборот
         }
-        // Блок авторасстановки кораблей компа
-        // Автогенерация и инициализация полей компа(boards[1])    initOpponentField() - внутри вызываются  функции рандомизации
+        // TODO: Исправить ввод на: число палуб, базовое поле, направление корабля
         // Блок игры
-        /*while (gameStatus != gameStatus.ENDED) {
-            ...
-        }*/
-        /* Цикл: пока игра не окончена (ни у кого не закончились корабли)           while (gameStatus != gameStatus.ENDED) { ... };
-         Обновление игрового поля
-         Отрисовка игрового поля     --> FieldsView
-         Ход в порядке очерёдности.  ... .makeMove(xCoordinate, yCoordinate)   makeMove return boolean?
-         Если Попал -> обновление игрового поля и ходит дальше, если нет -> передача хода; (цикл внутри? обновляем поле после первой ошибки?)
-        */
+        // декомпозировать ввод
+        Scanner sc = new Scanner(System.in);
+        while (gameStatus != GameState.ENDED) {
+            System.out.print("Enter field to shot, please: ");
+            // Ввод
+            System.out.print("Enter x: ");
+            int x = sc.nextInt();
+            System.out.println(("Enter y: "));
+            int y = sc.nextInt();
+            boolean result;
+            do {  // result - попал/не попал
+                result = Shot.doShot(x, y, gameOptions.getBoards()[1]);
+                // отображение надписи, что попал или нет
+                FieldsView.printNewFields(gameOptions.getBoards()[0], gameOptions.getBoards()[1]);
+            } while (result);
+
+            System.out.println("Opponents shot: ");
+            do {
+                // result = opponents shot...
+                // отображение надписи, попал или нет
+                FieldsView.printNewFields(gameOptions.getBoards()[0], gameOptions.getBoards()[1]);
+            } while (result);
+        }
+        // Декомпозировать
+        // TODO: подумать над тем, как контроллировать статус игры. КОгда игра заканчивается?
     }
 
     public GameOptions getGameOptions() {

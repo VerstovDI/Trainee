@@ -1,5 +1,7 @@
 package Content;
 
+import java.util.ArrayList;
+
 public class Ship {
     private int x, y;  // "Начальная клетка" в расположении корабля
     private int dx, dy;  // Смещения относительно начальной клетки
@@ -52,6 +54,17 @@ public class Ship {
 
     public void setShipState(ShipState shipState) {
         this.shipState = shipState;
+    }
+
+    // TODO: допилить
+    public ArrayList<Integer> fieldsAroundShip() {
+        ArrayList<Integer> res = new ArrayList<>();
+        for (int i = x; i <= x + dx; i++) {
+            for (int j = y; j <= x + dy; j++) {
+                //
+            }
+        }
+        return res;
     }
 
     @Override
