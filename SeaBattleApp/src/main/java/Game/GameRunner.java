@@ -3,6 +3,7 @@ package Game;
 import Content.FieldState;
 import Content.Ship;
 import DataInput.Input;
+import GameLogic.ShipArrangement;
 import GameView.FieldsView;
 
 // Загрузчик игры. Включает в себя заданные игровые опции (по умолчанию (поля 10 на 10, первый ходит пользователь) или нет)
@@ -19,33 +20,32 @@ public class GameRunner {
     }
 
     public void startNewGame(){
-        System.out.println("\t\t\t~~~~~  W E L C O M E  T O  T H E  S E A  B A T T L E  G A M E  ~~~~~\n");
+        System.out.println("\t\t\t" +
+                "~~~~~  W E L C O M E  T O  T H E  S E A  B A T T L E  G A M E  ~~~~~\n");
         this.gameStatus = GameState.IN_GAME;
         FieldsView.printStartFields();
-        // Инициализация полей пользователя (boards[0]). Ввод координат кораблей (покоординатно)        initUserField(...)
         if (!gameOptions.isRandomFirstMove()) {
-            System.out.println("Arrange your ships, please.");
-            System.out.println("| Please, enter ships one by one.\n");
+            System.out.println("Arrange your ships, please.\n" +
+                    "| Please, enter ships one by one.\n");
+            // Блок расстановки кораблей
             while (true) { // TODO: подумать над условием выхода из цикла
                 Ship ship = Input.getShip(gameOptions);
                 for (int i = ship.getX(); i <= ship.getX() + ship.getDx(); i++) {
                     for (int j = ship.getY(); j <= ship.getY() + ship.getDy(); j++) {
-                        gameOptions.boards[0].getGameBoard().get(i).get(j).setFieldState(FieldState.SHIP);
-                        gameOptions.boards[0].getGameBoard().get(i).get(j).setShip(ship);
+                        ShipArrangement.putShip(ship, gameOptions);
                     }
                 }
-                // TODO: корабль  на все клетки!!! а тут пока на одну только
                 // TODO: Зачем в этих манипуляциях ship ?
-                FieldsView.printNewFields(ship);
-                // putShip(ship);
+                FieldsView.printNewFields(gameOptions.boards[0], gameOptions.boards[1]);
             }
             // вызываем метод расстановки кораблей юзера, который вызывает метод сканирования ввода -> обновляем состояния, поля
             // вызываем метод авторасстановки кораблей компа
         } else {
             // наоборот
         }
-        // Автогенерация и инициализация полей компа(boards[1])            initOpponentField() - внутри вызываются  функции рандомизации
-
+        // Блок авторасстановки кораблей компа
+        // Автогенерация и инициализация полей компа(boards[1])    initOpponentField() - внутри вызываются  функции рандомизации
+        // Блок игры
         /*while (gameStatus != gameStatus.ENDED) {
             ...
         }*/
@@ -80,6 +80,4 @@ public class GameRunner {
                 ", gameStatus=" + gameStatus +
                 '}';
     }
-
-    //private void putShips
 }
