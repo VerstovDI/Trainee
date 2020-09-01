@@ -1,5 +1,7 @@
 package Content;
 
+import DataInput.InputChecker;
+
 import java.util.ArrayList;
 
 public class Ship {
@@ -79,17 +81,6 @@ public class Ship {
 
     public void setShipFields(ArrayList<Board.Field> shipFields) {
         this.shipFields = shipFields;
-    }
-
-    // TODO: допилить
-    public ArrayList<Integer> fieldsAroundShip() {
-        ArrayList<Integer> res = new ArrayList<>();
-        for (int i = x; i <= x + dx; i++) {
-            for (int j = y; j <= x + dy; j++) {
-                //
-            }
-        }
-        return res;
     }
 
     @Override

@@ -9,8 +9,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class GameOptions {
-    int NUMBER_OF_PLAYERS = 2;
-    int fieldSize = 10;  // Размер каждого из игровых полей (квадраты fieldsSize x fieldsSize)
+    public static int NUMBER_OF_PLAYERS = 2;
+    public static int fieldSize = 10;  // Размер каждого из игровых полей (квадраты fieldsSize x fieldsSize)
     boolean isRandomFirstMove; // Право первого хода. True - случайно. False - пользователь ходит первым.
     Board[] boards = new Board[NUMBER_OF_PLAYERS];  // Игровые поля. Поле #1 - пользователя, поле #2 - соперника.
     HashMap<Integer, Integer> shipsConfig;
@@ -19,7 +19,7 @@ public class GameOptions {
 
     public GameOptions() {
         for (int i = 0; i < boards.length; i++) {
-            boards[i] = new Board(this.fieldSize);
+            boards[i] = new Board(fieldSize);
         }
         userShipsPlacements = new HashSet<>();
         currentNumberOfShips = new HashMap<>(4);
@@ -49,7 +49,7 @@ public class GameOptions {
     }
 
     public void setFieldSize(int fieldSize) {
-        this.fieldSize = fieldSize;
+        GameOptions.fieldSize = fieldSize;
     }
 
     public void setRandomFirstMove(boolean randomFirstMove) {
