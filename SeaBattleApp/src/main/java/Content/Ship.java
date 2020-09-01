@@ -6,14 +6,23 @@ public class Ship {
     private int x, y;  // "Начальная клетка" в расположении корабля
     private int dx, dy;  // Смещения относительно начальной клетки
     private ShipState shipState = ShipState.FULL;  // Состояние корабля
+    private int health;  // Здоровье корабля
+    private ArrayList<Board.Field> shipFields;  // Поля, занятые данным кораблем. Для упрощения
+    // TODO: допилить shipFields
 
     public Ship() { }
 
-    public Ship(int x, int y, int dx, int dy) {
+    public Ship(int x, int y) {
+        this.x = x;
+        this.y = y;
+        this.health = 1;
+    }
+    public Ship(int x, int y, int dx, int dy, int health) {
         this.x = x;
         this.y = y;
         this.dx = dx;
         this.dy = dy;
+        this.health = health;
     }
 
     public int getX() {
@@ -54,6 +63,22 @@ public class Ship {
 
     public void setShipState(ShipState shipState) {
         this.shipState = shipState;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public ArrayList<Board.Field> getShipFields() {
+        return shipFields;
+    }
+
+    public void setShipFields(ArrayList<Board.Field> shipFields) {
+        this.shipFields = shipFields;
     }
 
     // TODO: допилить

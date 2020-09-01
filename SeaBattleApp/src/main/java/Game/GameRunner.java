@@ -51,22 +51,33 @@ public class GameRunner {
         // декомпозировать ввод
         Scanner sc = new Scanner(System.in);
         while (gameStatus != GameState.ENDED) {
-            System.out.print("Enter field to shot, please: ");
-            // Ввод
-            System.out.print("Enter x: ");
-            int x = sc.nextInt();
-            System.out.println(("Enter y: "));
-            int y = sc.nextInt();
             boolean result;
             do {  // result - попал/не попал
+                System.out.println("Enter field to shot, please.");
+                System.out.print("\tEnter x: ");
+                int x = sc.nextInt();
+                System.out.print(("\tEnter y: "));
+                int y = sc.nextInt();
                 result = Shot.doShot(x, y, gameOptions.getBoards()[1]);
-                // отображение надписи, что попал или нет
+                // TODO: сделать Notifier?
+                if (result) {
+                    System.out.println("---> Hit!");
+                    System.out.println();
+                } else {
+                    System.out.println("---> Missed!");
+                }
                 FieldsView.printNewFields(gameOptions.getBoards()[0], gameOptions.getBoards()[1]);
             } while (result);
 
             System.out.println("Opponents shot: ");
             do {
                 // result = opponents shot...
+                if (result) {
+                    System.out.println("---> Hit!");
+                    System.out.println();
+                } else {
+                    System.out.println("---> Missed!");
+                }
                 // отображение надписи, попал или нет
                 FieldsView.printNewFields(gameOptions.getBoards()[0], gameOptions.getBoards()[1]);
             } while (result);

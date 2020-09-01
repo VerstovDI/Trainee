@@ -27,7 +27,7 @@ public class Input {
             System.out.print("\t\t  y = ");
             coordinates[1] = sc.nextInt();
             if (numberOfDeck == 1) {
-                return new Ship (coordinates[0], coordinates[1], 0, 0);
+                return new Ship (coordinates[0], coordinates[1]);
             } else {
                 System.out.println("\t\t Stern:");
                 System.out.print("\t\t  x = ");
@@ -46,7 +46,8 @@ public class Input {
         } else {
             System.out.println("Вы ввели не целое число");
         }
-        return new Ship(coordinates[0], coordinates[1],
-                coordinates[2] - coordinates[0],coordinates[3] - coordinates[1]);
+        int dx = coordinates[2] - coordinates[0];
+        int dy = coordinates[3] - coordinates[1];
+        return new Ship(coordinates[0], coordinates[1], dx, dy, Math.abs(dx - dy));
     }
 }
