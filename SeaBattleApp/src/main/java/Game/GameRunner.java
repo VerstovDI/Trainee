@@ -46,9 +46,9 @@ public class GameRunner {
             while (!gameOptions.shipsConfig.equals(gameOptions.currentNumberOfShips)) {
                 // TODO: подумать над условием выхода из цикла
 
-                AI testComp = new AI(gameOptions);
+                /*AI testComp = new AI(gameOptions);
                 testComp.autoPutShip(gameOptions.getBoards()[1]);
-                FieldsView.printNewFields(gameOptions.getBoards()[0],gameOptions.getBoards()[1]);
+                FieldsView.printNewFields(gameOptions.getBoards()[0],gameOptions.getBoards()[1]);*/
 
                 Ship ship = Input.getShip(gameOptions);
                 if (InputChecker.checkFieldsAroundShip(gameOptions.getBoards()[0], ship)) {
@@ -80,7 +80,6 @@ public class GameRunner {
                 // TODO: сделать Notifier?
                 if (result) {
                     out.println("---> Hit!");
-                    out.println();
                 } else {
                     out.println("---> Missed!");
                 }
@@ -89,10 +88,9 @@ public class GameRunner {
 
             System.out.println("Opponents shot: ");
             do {
-                result = computer.AIShot();
+                result = computer.AIShot(gameOptions.getBoards()[0]);
                 if (result) {
                     out.println("---> Hit!");
-                    out.println();
                 } else {
                     out.println("---> Missed!");
                 }
