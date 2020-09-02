@@ -1,6 +1,7 @@
 package Content;
 
 import DataInput.InputChecker;
+import Game.GameOptions;
 
 import java.util.ArrayList;
 
@@ -81,6 +82,28 @@ public class Ship {
 
     public void setShipFields(ArrayList<Board.Field> shipFields) {
         this.shipFields = shipFields;
+    }
+
+    public int getShipMinX() {
+        return Math.max(0, this.getX() - 1);
+    }
+
+    public int getShipMinY() {
+        return Math.max(0, this.getY() - 1);
+    }
+
+    public int getShipMaxX() {
+        return Math.min(GameOptions.fieldSize - 1,
+                this.getX()
+                        + 1
+                        + (this.getDx() > this.getDy() ? this.getDx() - this.getDy() : 0));
+    }
+
+    public int getShipMaxY() {
+        return Math.min(GameOptions.fieldSize - 1,
+                this.getY()
+                        + 1
+                        + (this.getDx() > this.getDy() ? 0 : this.getDy() - this.getDx()));
     }
 
     @Override

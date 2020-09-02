@@ -10,6 +10,7 @@ public class FieldsView {
     static {
         viewDict.put(FieldState.SHIP, "[#]");
         viewDict.put(FieldState.WATER, "[ ]");
+        viewDict.put(FieldState.SHIP_BORDER, "[ ]");
         viewDict.put(FieldState.HIT, "[X]");
         viewDict.put(FieldState.MISSED, "[*]");
     }  // [ ], [*], [#], [X] - вода, мимо, корабль, ранил соответственно
@@ -29,7 +30,7 @@ public class FieldsView {
                 printField(i, j, userBoard);
                 }
             System.out.print("\t|  " + i + " ");
-            for (int k = 0; k < userBoard.getGameBoard().size(); k++) {
+            for (int k = 0; k < opponentBoard.getGameBoard().size(); k++) {
                 printField(i, k, opponentBoard);
             }
             System.out.println();
