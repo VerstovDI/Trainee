@@ -10,7 +10,7 @@ public class GameOptions {
     boolean isRandomFirstMove; // Право первого хода. True - случайно. False - пользователь ходит первым.
     Board[] boards = new Board[NUMBER_OF_PLAYERS];  // Игровые поля. Поле #1 - пользователя, поле #2 - соперника.
     HashMap<Integer, Integer> shipsConfig;
-    HashMap<Integer, Integer> currentNumberOfShips;
+    public static HashMap<Integer, Integer> currentNumberOfShips;
 
     public GameOptions() {
         for (int i = 0; i < boards.length; i++) {
@@ -75,6 +75,6 @@ public class GameOptions {
     }
 
     public void setCurrentNumberOfShips(HashMap<Integer, Integer> currentNumberOfShips) {
-        this.currentNumberOfShips = currentNumberOfShips;
+        GameOptions.currentNumberOfShips = currentNumberOfShips;
     }
 }

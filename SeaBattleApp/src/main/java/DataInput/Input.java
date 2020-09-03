@@ -1,6 +1,5 @@
 package DataInput;
 
-import Content.Board;
 import Content.Ship;
 import Game.GameOptions;
 
@@ -10,18 +9,20 @@ public class Input {
     static Scanner sc = new Scanner(System.in);
 
     public static Ship getShip(GameOptions gameOptions) {
-        Scanner sc = new Scanner(System.in);
+        // TODO: Допилить ввод.
+        //  1. Декомпозировать;
+        //  2. Вводить поля в более удобной форме?
+        //  3. Сделать нормальные проверки
         System.out.print("| Ships arrangement:\n\t# of decks = ");
         int[] coordinates = new int[4];
         if (sc.hasNextInt()) {
             int numberOfDeck = sc.nextInt();
             gameOptions.getCurrentNumberOfShips().computeIfPresent(numberOfDeck, (k, v) -> v + 1);
-            if (gameOptions.getShipsConfig().get(numberOfDeck) < gameOptions.getCurrentNumberOfShips().get(numberOfDeck)) {
+            if (gameOptions.getShipsConfig().get(numberOfDeck)
+                    < gameOptions.getCurrentNumberOfShips().get(numberOfDeck)) {
                 throw new IllegalArgumentException("Too more ships with this number of decks");
             }
             // TODO: сделать проверку!! Класс inputChecker
-            // TODO: подумать про передачу GameOptions
-            // TODO: если # of decks = 1, не вводить дважды координаты
             System.out.println("\t| Now, point out ship's cape and after that ship's stern:");
             System.out.println("\t   Ship:\n\t\t Cape:");
             System.out.print("\t\t  x = ");
@@ -42,7 +43,6 @@ public class Input {
                     throw new IllegalArgumentException("Number of decks isn't equals to the coordinates!");
                 } // TODO: вынести все проверки в input checker
             }
-
             // Проверка верности расстановки. Отдельный метод InputChecker
             // Если поле занято кораблём или рядом корабль, или неверные координаты, то...
         } else {
@@ -50,7 +50,12 @@ public class Input {
         }
         int dx = coordinates[2] - coordinates[0];
         int dy = coordinates[3] - coordinates[1];
-        return new Ship(coordinates[0], coordinates[1], dx, dy, Math.abs(dx - dy));
+        Ship ship = new Ship(coordinates[0], coordinates[1], dx, dy, Math.abs(dx - dy));
+        if (!InputChecker.checkFieldsAroundShip(gameOptions.getBoards()[0], ship)) {
+            throw new IllegalArgumentException(
+                    "The ship can't be put on board (touches another ship)");
+        }
+        return ship;
     }
 
     public static int inputFieldCoordinate() {

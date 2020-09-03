@@ -4,6 +4,7 @@ import Content.Board;
 import Content.FieldState;
 import Content.Ship;
 import Content.ShipState;
+import Game.GameOptions;
 
 public class Shot {
     public static boolean doShot(int xPos, int yPos, Board board) {
@@ -23,6 +24,12 @@ public class Shot {
                         }
                     }
                 }
+                /*int numberOfDecks = Math.abs(ship.getDx() - ship.getDy());
+                GameOptions.currentNumberOfShips
+                        .computeIfPresent(numberOfDecks, (k, v) -> v - 1);
+                if (GameOptions.currentNumberOfShips.get(numberOfDecks) == 0) {
+                    GameOptions.currentNumberOfShips.remove(numberOfDecks);
+                }*/ // TODO: доделать это. Передавать в метод doShot ссылку на Map. Бах. Тут и полиморфизм.
             }
             return true;
         } else {

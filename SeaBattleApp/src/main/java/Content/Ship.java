@@ -11,7 +11,7 @@ public class Ship {
     private ShipState shipState = ShipState.FULL;  // Состояние корабля
     private int health;  // Здоровье корабля
     //private ArrayList<Board.Field> shipFields;  // Поля, занятые данным кораблем. Для упрощения
-    // TODO: допилить shipFields. Нужны ли они?
+    // TODO: shipFields. Нужны ли они?
 
     public Ship() { }
 

@@ -43,14 +43,15 @@ public class GameRunner {
             out.println("| Arrange your ships, please.\n" +
                     "| Please, enter ships one by one.\n");
             // Ship arrangement block
-            while (!gameOptions.shipsConfig.equals(gameOptions.currentNumberOfShips)) {
+            while (!gameOptions.shipsConfig.equals(GameOptions.currentNumberOfShips)) {
                 Ship ship = Input.getShip(gameOptions);
-                if (InputChecker.checkFieldsAroundShip(gameOptions.getBoards()[0], ship)) {
+                ShipArrangement.putShip(ship, gameOptions.getBoards()[0]);
+                /*if (InputChecker.checkFieldsAroundShip(gameOptions.getBoards()[0], ship)) {
                     ShipArrangement.putShip(ship, gameOptions.getBoards()[0]);
                 } else {
                     throw new IllegalArgumentException(
                             "The ship can't be put on board (touches another ship)");
-                }
+                }*/
                 FieldsView.printNewFields(gameOptions.boards[0], gameOptions.boards[1]);
             }
             out.println("Your ships are arranged!\n" +
@@ -79,6 +80,7 @@ public class GameRunner {
                 Notificator.printShotResult(result);
                 FieldsView.printNewFields(gameOptions.getBoards()[0], gameOptions.getBoards()[1]);
             } while (result);
+            // if (GameOptions.currentNumberOfShips.)
         }
         } else {
             //  Conversely
