@@ -1,9 +1,10 @@
 package Game;
 
-// Основная и единственая точка входа в приложение-игру "Морской бой".
+// The main and only entry point to the APP game "Sea Battle!"
 public class Main {
     public static void main(String[] args) {
-        GameRunner gameRunner = new GameRunner();  // Создаём объект GameRunner - "загрузчик" игры
-        gameRunner.startNewGame();  // Запускаем новую игру. Играем.
+        GameRunner gameRunner = new GameRunner();  // Creating game loader
+        // Starting new game with default options. For configuring go to GameOptions class
+        gameRunner.startNewGame();
     }
 }

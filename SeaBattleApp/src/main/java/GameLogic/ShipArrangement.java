@@ -3,7 +3,6 @@ package GameLogic;
 import Content.Board;
 import Content.FieldState;
 import Content.Ship;
-import Game.GameOptions;
 
 public class ShipArrangement {
     // TODO: допилить, додекомпозировать

@@ -3,8 +3,13 @@ package Content;
 
 import java.util.ArrayList;
 
+/**
+ * Class representing game's field as 2D-array of objects Field
+ * @author Danila
+ * @version 1.0
+ */
 public class Board {
-    private ArrayList<ArrayList<Field>> gameBoard;  // Игровое поле. Двумерный массив экземпляров класса Field
+    private final ArrayList<ArrayList<Field>> gameBoard;
 
     public Board(int boardSize){
         this.gameBoard = new ArrayList<>(boardSize);
@@ -22,7 +27,7 @@ public class Board {
 
     public static class Field {
         private FieldState fieldState = FieldState.WATER;
-        private Ship ship;  // Занята ли клетка каким-то кораблём. Если да, то меняется состояние fieldState
+        private Ship ship;
 
         public Field() { }
 

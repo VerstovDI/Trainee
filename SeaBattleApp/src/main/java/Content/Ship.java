@@ -10,8 +10,8 @@ public class Ship {
     private int dx, dy;  // Смещения относительно начальной клетки
     private ShipState shipState = ShipState.FULL;  // Состояние корабля
     private int health;  // Здоровье корабля
-    private ArrayList<Board.Field> shipFields;  // Поля, занятые данным кораблем. Для упрощения
-    // TODO: допилить shipFields. Нужны ли они
+    //private ArrayList<Board.Field> shipFields;  // Поля, занятые данным кораблем. Для упрощения
+    // TODO: допилить shipFields. Нужны ли они?
 
     public Ship() { }
 
@@ -76,13 +76,13 @@ public class Ship {
         this.health = health;
     }
 
-    public ArrayList<Board.Field> getShipFields() {
+    /*public ArrayList<Board.Field> getShipFields() {
         return shipFields;
-    }
+    }*/
 
-    public void setShipFields(ArrayList<Board.Field> shipFields) {
+    /*public void setShipFields(ArrayList<Board.Field> shipFields) {
         this.shipFields = shipFields;
-    }
+    }*/
 
     public int getShipMinX() {
         return Math.max(0, this.getX() - 1);

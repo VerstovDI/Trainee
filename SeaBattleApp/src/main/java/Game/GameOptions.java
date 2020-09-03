@@ -1,12 +1,8 @@
 package Game;
 
 import Content.Board;
-import Content.Ship;
 
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 public class GameOptions {
     public static int NUMBER_OF_PLAYERS = 2;
@@ -15,13 +11,11 @@ public class GameOptions {
     Board[] boards = new Board[NUMBER_OF_PLAYERS];  // Игровые поля. Поле #1 - пользователя, поле #2 - соперника.
     HashMap<Integer, Integer> shipsConfig;
     HashMap<Integer, Integer> currentNumberOfShips;
-    HashSet<Ship> userShipsPlacements;
 
     public GameOptions() {
         for (int i = 0; i < boards.length; i++) {
             boards[i] = new Board(fieldSize);
         }
-        userShipsPlacements = new HashSet<>();
         currentNumberOfShips = new HashMap<>(4);
         currentNumberOfShips.put(1, 0);
         currentNumberOfShips.put(2, 0);
@@ -32,7 +26,7 @@ public class GameOptions {
         shipsConfig.put(2, 3);
         shipsConfig.put(3, 2);
         shipsConfig.put(4, 1);
-    };
+    }
 
     /*public GameOptions(int fieldSize, boolean isRandomFirstMove) {
         this.fieldSize = fieldSize;

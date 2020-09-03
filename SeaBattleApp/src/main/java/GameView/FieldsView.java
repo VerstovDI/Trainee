@@ -13,14 +13,7 @@ public class FieldsView {
         viewDict.put(FieldState.SHIP_BORDER, "[ ]");
         viewDict.put(FieldState.HIT, "[X]");
         viewDict.put(FieldState.MISSED, "[*]");
-    }  // [ ], [*], [#], [X] - вода, мимо, корабль, ранил соответственно
-
-    public static void printStartFields() {
-        printHorizontalLetters();
-        for (int i = 0; i < 10; i++) {
-            printLine(i);
-        }
-    }
+    }  // [ ], [*], [#], [X] - WATER/SHIP_BORDER, MISSED, SHIP, DAMAGED respectively
 
     public static void printNewFields(Board userBoard, Board opponentBoard) {
         printHorizontalLetters();
@@ -59,18 +52,6 @@ public class FieldsView {
                 System.out.println("\t  " + 'К');
             }
         }
-    }
-
-    private static void printLine(int i) { // TODO:подумать над методом printLine(...)
-        System.out.print(" " + i + " ");
-        for (int j = 0; j < 10; j++) {
-            System.out.print("[ ] ");
-        }
-        System.out.print("\t|  " + i + " ");
-        for (int k = 0; k < 10; k++) {
-            System.out.print("[ ] ");
-        }
-        System.out.println();
     }
     // TODO: поработать с запуском
     // TODO: не забыть сделать очистку игрового поля

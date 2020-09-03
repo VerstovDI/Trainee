@@ -7,6 +7,8 @@ import Game.GameOptions;
 import java.util.Scanner;
 
 public class Input {
+    static Scanner sc = new Scanner(System.in);
+
     public static Ship getShip(GameOptions gameOptions) {
         Scanner sc = new Scanner(System.in);
         System.out.print("| Ships arrangement:\n\t# of decks = ");
@@ -49,5 +51,9 @@ public class Input {
         int dx = coordinates[2] - coordinates[0];
         int dy = coordinates[3] - coordinates[1];
         return new Ship(coordinates[0], coordinates[1], dx, dy, Math.abs(dx - dy));
+    }
+
+    public static int inputFieldCoordinate() {
+        return sc.nextInt();
     }
 }

@@ -1,6 +1,5 @@
 package Game;
 
-import Content.FieldState;
 import Content.Ship;
 import DataInput.Input;
 import DataInput.InputChecker;
@@ -9,21 +8,22 @@ import GameLogic.ShipArrangement;
 import GameLogic.Shot;
 import GameView.FieldsView;
 
-import javax.swing.text.FieldView;
-
 import static java.lang.System.out;
-import static java.lang.System.in;
 
-import java.util.Scanner;
-
-/*
-Загрузчик игры.
-Включает в себя заданные игровые опции.
-(по умолчанию (поля 10 на 10, первый ходит пользователь) или нет).
-Имеет метод startNewGame, запускающий новую игру
+/**
+Game runner, which provides game options and method for the game.
+ Controls game process.
  */
 public class GameRunner {
+    /**
+     * GameOptions object, provides basic game options, such as number of players,
+     * board's size, randomness of the first move e.t.c.
+     */
     private GameOptions gameOptions;
+    /**
+     * GameState object to control game's status
+     * (game not started, game in progress, game is ended)
+     */
     private GameState gameStatus = GameState.EMPTY;
 
     public GameRunner() {
@@ -40,16 +40,10 @@ public class GameRunner {
         gameStatus = GameState.IN_GAME;
         FieldsView.printNewFields(gameOptions.boards[0], gameOptions.boards[1]);
         if (!gameOptions.isRandomFirstMove()) {
-            out.println("Arrange your ships, please.\n" +
+            out.println("| Arrange your ships, please.\n" +
                     "| Please, enter ships one by one.\n");
-            // Блок расстановки кораблей
+            // Ship arrangement block
             while (!gameOptions.shipsConfig.equals(gameOptions.currentNumberOfShips)) {
-                // TODO: подумать над условием выхода из цикла
-
-                /*AI testComp = new AI(gameOptions);
-                testComp.autoPutShip(gameOptions.getBoards()[1]);
-                FieldsView.printNewFields(gameOptions.getBoards()[0],gameOptions.getBoards()[1]);*/
-
                 Ship ship = Input.getShip(gameOptions);
                 if (InputChecker.checkFieldsAroundShip(gameOptions.getBoards()[0], ship)) {
                     ShipArrangement.putShip(ship, gameOptions.getBoards()[0]);
@@ -57,7 +51,6 @@ public class GameRunner {
                     throw new IllegalArgumentException(
                             "The ship can't be put on board (touches another ship)");
                 }
-                // TODO: Зачем в этих манипуляциях ship ?
                 FieldsView.printNewFields(gameOptions.boards[0], gameOptions.boards[1]);
             }
             out.println("Your ships are arranged!\n" +
@@ -67,40 +60,32 @@ public class GameRunner {
             FieldsView.printNewFields(gameOptions.getBoards()[0], gameOptions.getBoards()[1]);
         // TODO: Исправить ввод на: число палуб, базовое поле, направление корабля
         // TODO: декомпозировать ввод
-        Scanner sc = new Scanner(in);
         while (gameStatus != GameState.ENDED) {
             boolean result;
             do {  // result - попал/не попал
                 out.println("Enter field to shot, please.");
                 out.print("\tEnter x: ");
-                int x = sc.nextInt();
+                int x = Input.inputFieldCoordinate();
                 out.print(("\tEnter y: "));
-                int y = sc.nextInt();
+                int y = Input.inputFieldCoordinate();
                 result = Shot.doShot(x, y, gameOptions.getBoards()[1]);
-                // TODO: сделать Notifier?
-                if (result) {
-                    out.println("---> Hit!");
-                } else {
-                    out.println("---> Missed!");
-                }
+                Notificator.printShotResult(result);
                 FieldsView.printNewFields(gameOptions.getBoards()[0], gameOptions.getBoards()[1]);
             } while (result);
 
-            System.out.println("Opponents shot: ");
+            out.println("Opponents shot: ");
             do {
                 result = computer.AIShot(gameOptions.getBoards()[0]);
-                if (result) {
-                    out.println("---> Hit!");
-                } else {
-                    out.println("---> Missed!");
-                }
+                Notificator.printShotResult(result);
                 FieldsView.printNewFields(gameOptions.getBoards()[0], gameOptions.getBoards()[1]);
             } while (result);
         }
         } else {
-            // наоборот
+            //  Conversely
         }
         // TODO: подумать над тем, как контроллировать статус игры. КОгда игра заканчивается?
+        // Игра заканчивается тогда,
+        // когда в одной из мап (юзерской или комповской) все ключи имеют значение 0
     }
 
     public GameOptions getGameOptions() {
