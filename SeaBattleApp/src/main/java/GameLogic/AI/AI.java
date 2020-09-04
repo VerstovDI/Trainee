@@ -8,6 +8,7 @@ import GameLogic.ShipArrangement;
 import GameLogic.Shot;
 
 import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class AI {
@@ -31,7 +32,7 @@ public class AI {
         this.gameOptions = gameOptions;
     }
 
-    public boolean autoPutShip(Board board) {
+    public void autoPutShip(Board board) {
         for (int key : AIShipsOnBoard.keySet()) {
             while (AIShipsOnBoard.get(key) < gameOptions.getShipsConfig().get(key)) {
                 Ship ship = getRandomShip(key);
@@ -41,15 +42,14 @@ public class AI {
                     }
                 }
             }
-        return true;
     }
 
-    public boolean AIShot(Board firedBoard) {
+    public boolean AIShot(Board firedBoard, Map<Integer, Integer> computerShips) {
         // TODO: в будущем сделать логику, что если попал, то проверяет
         //  необстрелянные клетки по 4 сторонам от данной
         int xPos = rnd.nextInt(10);
         int yPos = rnd.nextInt(10);
-        return Shot.doShot(xPos, yPos, firedBoard);
+        return Shot.doShot(xPos, yPos, firedBoard, computerShips);
     }
 
     private Ship getRandomShip(int numberOfDecks) {

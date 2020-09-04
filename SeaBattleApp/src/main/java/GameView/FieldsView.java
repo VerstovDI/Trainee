@@ -2,6 +2,7 @@ package GameView;
 
 import Content.Board;
 import Content.FieldState;
+import Game.GameOptions;
 
 import java.util.HashMap;
 
@@ -24,7 +25,7 @@ public class FieldsView {
                 }
             System.out.print("\t|  " + i + " ");
             for (int k = 0; k < opponentBoard.getGameBoard().size(); k++) {
-                printField(i, k, opponentBoard);
+                printOpponentsField(i, k, opponentBoard);
             }
             System.out.println();
         }
@@ -33,6 +34,16 @@ public class FieldsView {
     private static void printField(int i, int j, Board board) {
         System.out.print(viewDict.get(board.getGameBoard().get(i).get(j)
                 .getFieldState()) + " ");
+    }
+
+    private static void printOpponentsField(int i, int j, Board board) {
+        FieldState fieldState = board.getGameBoard().get(i).get(j)
+                .getFieldState();
+        if (fieldState == FieldState.SHIP) {
+            System.out.print(viewDict.get(FieldState.WATER) + " ");
+        } else {
+            printField(i, j, board);
+        }
     }
 
     private static void printHorizontalLetters() {
@@ -53,6 +64,4 @@ public class FieldsView {
             }
         }
     }
-    // TODO: поработать с запуском
-    // TODO: не забыть сделать очистку игрового поля
 }

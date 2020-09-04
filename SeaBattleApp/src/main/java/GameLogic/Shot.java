@@ -4,10 +4,14 @@ import Content.Board;
 import Content.FieldState;
 import Content.Ship;
 import Content.ShipState;
-import Game.GameOptions;
+import DataInput.Input;
+
+import java.util.Map;
+
+import static java.lang.System.out;
 
 public class Shot {
-    public static boolean doShot(int xPos, int yPos, Board board) {
+    public static boolean doShot(int xPos, int yPos, Board board, Map<Integer, Integer> shipsMap) {
         Board.Field field = board.getGameBoard().get(xPos).get(yPos);
         if (field.getFieldState() == FieldState.SHIP) {
             field.setFieldState(FieldState.HIT);
@@ -24,17 +28,25 @@ public class Shot {
                         }
                     }
                 }
-                /*int numberOfDecks = Math.abs(ship.getDx() - ship.getDy());
-                GameOptions.currentNumberOfShips
-                        .computeIfPresent(numberOfDecks, (k, v) -> v - 1);
-                if (GameOptions.currentNumberOfShips.get(numberOfDecks) == 0) {
-                    GameOptions.currentNumberOfShips.remove(numberOfDecks);
-                }*/ // TODO: доделать это. Передавать в метод doShot ссылку на Map. Бах. Тут и полиморфизм.
+                int numberOfDecks = Math.abs(ship.getDx() - ship.getDy()) + 1;
+                shipsMap.computeIfPresent(numberOfDecks, (k, v) -> v - 1);
+                if (shipsMap.get(numberOfDecks) == 0) {
+                    shipsMap.remove(numberOfDecks);
+                }
             }
             return true;
         } else {
             field.setFieldState(FieldState.MISSED);
             return false;
         }
+    }
+
+    public static boolean playerShot(Board board, Map<Integer, Integer> shipsMap) {
+        out.println("Enter field to shot, please.");
+        out.print("\tEnter x: ");
+        int x = Input.inputFieldCoordinate();
+        out.print(("\tEnter y: "));
+        int y = Input.inputFieldCoordinate();
+        return Shot.doShot(x, y, board, shipsMap);
     }
 }

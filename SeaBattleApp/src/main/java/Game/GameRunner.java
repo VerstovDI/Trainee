@@ -2,7 +2,6 @@ package Game;
 
 import Content.Ship;
 import DataInput.Input;
-import DataInput.InputChecker;
 import GameLogic.AI.AI;
 import GameLogic.ShipArrangement;
 import GameLogic.Shot;
@@ -24,7 +23,7 @@ public class GameRunner {
      * GameState object to control game's status
      * (game not started, game in progress, game is ended)
      */
-    private GameState gameStatus = GameState.EMPTY;
+    private static GameState gameStatus = GameState.EMPTY;
 
     public GameRunner() {
         this.gameOptions = new GameOptions();
@@ -42,52 +41,36 @@ public class GameRunner {
         if (!gameOptions.isRandomFirstMove()) {
             out.println("| Arrange your ships, please.\n" +
                     "| Please, enter ships one by one.\n");
-            // Ship arrangement block
+            // Ship arrangement block (user's)
             while (!gameOptions.shipsConfig.equals(GameOptions.currentNumberOfShips)) {
                 Ship ship = Input.getShip(gameOptions);
                 ShipArrangement.putShip(ship, gameOptions.getBoards()[0]);
-                /*if (InputChecker.checkFieldsAroundShip(gameOptions.getBoards()[0], ship)) {
-                    ShipArrangement.putShip(ship, gameOptions.getBoards()[0]);
-                } else {
-                    throw new IllegalArgumentException(
-                            "The ship can't be put on board (touches another ship)");
-                }*/
                 FieldsView.printNewFields(gameOptions.boards[0], gameOptions.boards[1]);
             }
-            out.println("Your ships are arranged!\n" +
-                    "Opponents ships arrangement...");
-            AI computer = new AI(gameOptions);
+            out.println("| Your ships are arranged!\n" +
+                    "| Opponents ships arrangement...");
+            AI computer = new AI(gameOptions);  // Ship arrangement block (AI's)s
             computer.autoPutShip(gameOptions.getBoards()[1]);
             FieldsView.printNewFields(gameOptions.getBoards()[0], gameOptions.getBoards()[1]);
-        // TODO: Исправить ввод на: число палуб, базовое поле, направление корабля
-        // TODO: декомпозировать ввод
         while (gameStatus != GameState.ENDED) {
             boolean result;
-            do {  // result - попал/не попал
-                out.println("Enter field to shot, please.");
-                out.print("\tEnter x: ");
-                int x = Input.inputFieldCoordinate();
-                out.print(("\tEnter y: "));
-                int y = Input.inputFieldCoordinate();
-                result = Shot.doShot(x, y, gameOptions.getBoards()[1]);
+            out.println("| Your shot: ");
+            do {  // result - hit/missed
+                Notificator.isGameEnded(computer);
+                result = Shot.playerShot(gameOptions.getBoards()[1], GameOptions.currentNumberOfShips);
                 Notificator.printShotResult(result);
                 FieldsView.printNewFields(gameOptions.getBoards()[0], gameOptions.getBoards()[1]);
             } while (result);
 
-            out.println("Opponents shot: ");
+            out.println("| Opponents shot: ");
             do {
-                result = computer.AIShot(gameOptions.getBoards()[0]);
+                Notificator.isGameEnded(computer);
+                result = computer.AIShot(gameOptions.getBoards()[0], computer.getAIShipsOnBoard());
                 Notificator.printShotResult(result);
                 FieldsView.printNewFields(gameOptions.getBoards()[0], gameOptions.getBoards()[1]);
             } while (result);
-            // if (GameOptions.currentNumberOfShips.)
         }
-        } else {
-            //  Conversely
         }
-        // TODO: подумать над тем, как контроллировать статус игры. КОгда игра заканчивается?
-        // Игра заканчивается тогда,
-        // когда в одной из мап (юзерской или комповской) все ключи имеют значение 0
     }
 
     public GameOptions getGameOptions() {
@@ -102,8 +85,8 @@ public class GameRunner {
         return gameStatus;
     }
 
-    public void setGameStatus(GameState gameStatus) {
-        this.gameStatus = gameStatus;
+    public static void setGameStatus(GameState gameStatus) {
+        GameRunner.gameStatus = gameStatus;
     }
 
     @Override

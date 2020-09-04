@@ -5,7 +5,6 @@ import Content.FieldState;
 import Content.Ship;
 
 public class ShipArrangement {
-    // TODO: допилить, додекомпозировать
     public static void putShip(Ship ship, Board board) {
         for (int i = ship.getX(); i <= ship.getX() + ship.getDx(); i++) {
             for (int j = ship.getY(); j <= ship.getY() + ship.getDy(); j++) {
