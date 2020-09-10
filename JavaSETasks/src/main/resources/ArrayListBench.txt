@@ -1,0 +1,266 @@
+"C:\Program Files\Java\jdk1.8.0_261\bin\java.exe" "-javaagent:E:\IntelliJ IDEA 2020.1.3\lib\idea_rt.jar=50857:E:\IntelliJ IDEA 2020.1.3\bin" -Dfile.encoding=UTF-8 -classpath "C:\Program Files\Java\jdk1.8.0_261\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\deploy.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\ext\access-bridge-64.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\ext\cldrdata.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\ext\dnsns.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\ext\jaccess.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\ext\jfxrt.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\ext\localedata.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\ext\nashorn.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\ext\sunec.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\ext\sunjce_provider.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\ext\sunmscapi.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\ext\sunpkcs11.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\ext\zipfs.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\javaws.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\jce.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\jfxswt.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\management-agent.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\plugin.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\resources.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\rt.jar;E:\(7-8) Trainee\Trainee\JavaSETasks\target\classes;C:\Users\Anastasia\.m2\repository\org\openjdk\jmh\jmh-core\1.25.2\jmh-core-1.25.2.jar;C:\Users\Anastasia\.m2\repository\net\sf\jopt-simple\jopt-simple\4.6\jopt-simple-4.6.jar;C:\Users\Anastasia\.m2\repository\org\apache\commons\commons-math3\3.2\commons-math3-3.2.jar;C:\Users\Anastasia\.m2\repository\org\openjdk\jmh\jmh-generator-annprocess\1.25.2\jmh-generator-annprocess-1.25.2.jar" CollectionsTask.Main
+# JMH version: 1.25.2
+# VM version: JDK 1.8.0_261, Java HotSpot(TM) 64-Bit Server VM, 25.261-b12
+# VM invoker: C:\Program Files\Java\jdk1.8.0_261\jre\bin\java.exe
+# VM options: -javaagent:E:\IntelliJ IDEA 2020.1.3\lib\idea_rt.jar=50857:E:\IntelliJ IDEA 2020.1.3\bin -Dfile.encoding=UTF-8
+# Warmup: 1 iterations, 10 s each
+# Measurement: 5 iterations, 10 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: CollectionsTask.CollectionsComparison.benchAdd
+
+# Run progress: 0,00% complete, ETA 00:20:00
+# Fork: 1 of 5
+# Warmup Iteration   1: 1,318 us/op
+Iteration   1: 2,051 us/op
+Iteration   2: 15,267 us/op
+Iteration   3: 150,543 us/op
+Iteration   4: 896,481 us/op
+Iteration   5: 4143,269 us/op
+
+# Run progress: 5,00% complete, ETA 00:26:38
+# Fork: 2 of 5
+# Warmup Iteration   1: 1,733 us/op
+Iteration   1: 3,752 us/op
+Iteration   2: 3,572 us/op
+Iteration   3: 19,580 us/op
+Iteration   4: 58,483 us/op
+Iteration   5: 263,184 us/op
+
+# Run progress: 10,00% complete, ETA 00:24:24
+# Fork: 3 of 5
+# Warmup Iteration   1: 1,663 us/op
+Iteration   1: 3,894 us/op
+Iteration   2: 3,259 us/op
+Iteration   3: 18,524 us/op
+Iteration   4: 53,981 us/op
+Iteration   5: 223,452 us/op
+
+# Run progress: 15,00% complete, ETA 00:22:40
+# Fork: 4 of 5
+# Warmup Iteration   1: 1,269 us/op
+Iteration   1: 2,097 us/op
+Iteration   2: 15,297 us/op
+Iteration   3: 123,016 us/op
+Iteration   4: 647,395 us/op
+Iteration   5: 5207,152 us/op
+
+# Run progress: 20,00% complete, ETA 00:20:58
+# Fork: 5 of 5
+# Warmup Iteration   1: 1,286 us/op
+Iteration   1: 2,020 us/op
+Iteration   2: 15,317 us/op
+Iteration   3: 121,846 us/op
+Iteration   4: 657,856 us/op
+Iteration   5: 5337,341 us/op
+
+
+Result "CollectionsTask.CollectionsComparison.benchAdd":
+  719,545 ±(99.9%) 1200,671 us/op [Average]
+  (min, avg, max) = (2,020, 719,545, 5337,341), stdev = 1602,861
+  CI (99.9%): [≈ 0, 1920,216] (assumes normal distribution)
+
+
+# JMH version: 1.25.2
+# VM version: JDK 1.8.0_261, Java HotSpot(TM) 64-Bit Server VM, 25.261-b12
+# VM invoker: C:\Program Files\Java\jdk1.8.0_261\jre\bin\java.exe
+# VM options: -javaagent:E:\IntelliJ IDEA 2020.1.3\lib\idea_rt.jar=50857:E:\IntelliJ IDEA 2020.1.3\bin -Dfile.encoding=UTF-8
+# Warmup: 1 iterations, 10 s each
+# Measurement: 5 iterations, 10 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: CollectionsTask.CollectionsComparison.benchAddAt
+
+# Run progress: 25,00% complete, ETA 00:19:27
+# Fork: 1 of 5
+# Warmup Iteration   1: 25,224 us/op
+Iteration   1: 60,653 us/op
+Iteration   2: 79,516 us/op
+Iteration   3: 98,919 us/op
+Iteration   4: 121,815 us/op
+Iteration   5: 144,721 us/op
+
+# Run progress: 30,00% complete, ETA 00:17:29
+# Fork: 2 of 5
+# Warmup Iteration   1: 25,589 us/op
+Iteration   1: 62,637 us/op
+Iteration   2: 85,081 us/op
+Iteration   3: 104,471 us/op
+Iteration   4: 138,297 us/op
+Iteration   5: 146,557 us/op
+
+# Run progress: 35,00% complete, ETA 00:15:48
+# Fork: 3 of 5
+# Warmup Iteration   1: 25,658 us/op
+Iteration   1: 62,189 us/op
+Iteration   2: 86,550 us/op
+Iteration   3: 107,058 us/op
+Iteration   4: 117,336 us/op
+Iteration   5: 131,873 us/op
+
+# Run progress: 40,00% complete, ETA 00:14:17
+# Fork: 4 of 5
+# Warmup Iteration   1: 25,107 us/op
+Iteration   1: 61,052 us/op
+Iteration   2: 82,805 us/op
+Iteration   3: 103,119 us/op
+Iteration   4: 130,973 us/op
+Iteration   5: 139,056 us/op
+
+# Run progress: 45,00% complete, ETA 00:12:53
+# Fork: 5 of 5
+# Warmup Iteration   1: 25,186 us/op
+Iteration   1: 67,192 us/op
+Iteration   2: 84,480 us/op
+Iteration   3: 102,588 us/op
+Iteration   4: 129,515 us/op
+Iteration   5: 180,191 us/op
+
+
+Result "CollectionsTask.CollectionsComparison.benchAddAt":
+  105,146 ±(99.9%) 24,160 us/op [Average]
+  (min, avg, max) = (60,653, 105,146, 180,191), stdev = 32,252
+  CI (99.9%): [80,986, 129,305] (assumes normal distribution)
+
+
+# JMH version: 1.25.2
+# VM version: JDK 1.8.0_261, Java HotSpot(TM) 64-Bit Server VM, 25.261-b12
+# VM invoker: C:\Program Files\Java\jdk1.8.0_261\jre\bin\java.exe
+# VM options: -javaagent:E:\IntelliJ IDEA 2020.1.3\lib\idea_rt.jar=50857:E:\IntelliJ IDEA 2020.1.3\bin -Dfile.encoding=UTF-8
+# Warmup: 1 iterations, 10 s each
+# Measurement: 5 iterations, 10 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: CollectionsTask.CollectionsComparison.testGet
+
+# Run progress: 50,00% complete, ETA 00:11:33
+# Fork: 1 of 5
+# Warmup Iteration   1: 0,005 us/op
+Iteration   1: 0,004 us/op
+Iteration   2: 0,004 us/op
+Iteration   3: 0,004 us/op
+Iteration   4: 0,004 us/op
+Iteration   5: 0,004 us/op
+
+# Run progress: 55,00% complete, ETA 00:10:17
+# Fork: 2 of 5
+# Warmup Iteration   1: 0,005 us/op
+Iteration   1: 0,004 us/op
+Iteration   2: 0,004 us/op
+Iteration   3: 0,004 us/op
+Iteration   4: 0,004 us/op
+Iteration   5: 0,004 us/op
+
+# Run progress: 60,00% complete, ETA 00:09:03
+# Fork: 3 of 5
+# Warmup Iteration   1: 0,005 us/op
+Iteration   1: 0,005 us/op
+Iteration   2: 0,004 us/op
+Iteration   3: 0,004 us/op
+Iteration   4: 0,005 us/op
+Iteration   5: 0,004 us/op
+
+# Run progress: 65,00% complete, ETA 00:07:52
+# Fork: 4 of 5
+# Warmup Iteration   1: 0,006 us/op
+Iteration   1: 0,005 us/op
+Iteration   2: 0,004 us/op
+Iteration   3: 0,004 us/op
+Iteration   4: 0,004 us/op
+Iteration   5: 0,007 us/op
+
+# Run progress: 70,00% complete, ETA 00:06:42
+# Fork: 5 of 5
+# Warmup Iteration   1: 0,008 us/op
+Iteration   1: 0,009 us/op
+Iteration   2: 0,007 us/op
+Iteration   3: 0,007 us/op
+Iteration   4: 0,007 us/op
+Iteration   5: 0,007 us/op
+
+
+Result "CollectionsTask.CollectionsComparison.testGet":
+  0,005 ±(99.9%) 0,001 us/op [Average]
+  (min, avg, max) = (0,004, 0,005, 0,009), stdev = 0,001
+  CI (99.9%): [0,004, 0,006] (assumes normal distribution)
+
+
+# JMH version: 1.25.2
+# VM version: JDK 1.8.0_261, Java HotSpot(TM) 64-Bit Server VM, 25.261-b12
+# VM invoker: C:\Program Files\Java\jdk1.8.0_261\jre\bin\java.exe
+# VM options: -javaagent:E:\IntelliJ IDEA 2020.1.3\lib\idea_rt.jar=50857:E:\IntelliJ IDEA 2020.1.3\bin -Dfile.encoding=UTF-8
+# Warmup: 1 iterations, 10 s each
+# Measurement: 5 iterations, 10 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: CollectionsTask.CollectionsComparison.testRemove
+
+# Run progress: 75,00% complete, ETA 00:05:33
+# Fork: 1 of 5
+# Warmup Iteration   1: 0,408 us/op
+Iteration   1: 0,373 us/op
+Iteration   2: 0,247 us/op
+Iteration   3: 0,238 us/op
+Iteration   4: 0,254 us/op
+Iteration   5: 0,235 us/op
+
+# Run progress: 80,00% complete, ETA 00:04:25
+# Fork: 2 of 5
+# Warmup Iteration   1: 0,225 us/op
+Iteration   1: 0,247 us/op
+Iteration   2: 0,233 us/op
+Iteration   3: 0,247 us/op
+Iteration   4: 0,248 us/op
+Iteration   5: 0,241 us/op
+
+# Run progress: 85,00% complete, ETA 00:03:18
+# Fork: 3 of 5
+# Warmup Iteration   1: 0,265 us/op
+Iteration   1: 0,250 us/op
+Iteration   2: 0,227 us/op
+Iteration   3: 0,256 us/op
+Iteration   4: 0,388 us/op
+Iteration   5: 0,241 us/op
+
+# Run progress: 90,00% complete, ETA 00:02:11
+# Fork: 4 of 5
+# Warmup Iteration   1: 0,261 us/op
+Iteration   1: 0,257 us/op
+Iteration   2: 0,234 us/op
+Iteration   3: 0,236 us/op
+Iteration   4: 0,247 us/op
+Iteration   5: 0,238 us/op
+
+# Run progress: 95,00% complete, ETA 00:01:05
+# Fork: 5 of 5
+# Warmup Iteration   1: 0,241 us/op
+Iteration   1: 0,350 us/op
+Iteration   2: 0,253 us/op
+Iteration   3: 0,258 us/op
+Iteration   4: 0,246 us/op
+Iteration   5: 0,251 us/op
+
+
+Result "CollectionsTask.CollectionsComparison.testRemove":
+  0,260 ±(99.9%) 0,032 us/op [Average]
+  (min, avg, max) = (0,227, 0,260, 0,388), stdev = 0,043
+  CI (99.9%): [0,228, 0,292] (assumes normal distribution)
+
+
+# Run complete. Total time: 00:21:45
+
+REMEMBER: The numbers below are just data. To gain reusable insights, you need to follow up on
+why the numbers are the way they are. Use profilers (see -prof, -lprof), design factorial
+experiments, perform baseline and negative tests that provide experimental control, make sure
+the benchmarking environment is safe on JVM/OS/HW level, ask for reviews from the domain experts.
+Do not assume the numbers tell you what you want them to tell.
+
+Benchmark                                         Mode  Cnt    Score      Error  Units
+CollectionsTask.CollectionsComparison.benchAdd    avgt   25  719,545 ± 1200,671  us/op
+CollectionsTask.CollectionsComparison.benchAddAt  avgt   25  105,146 ±   24,160  us/op
+CollectionsTask.CollectionsComparison.testGet     avgt   25    0,005 ±    0,001  us/op
+CollectionsTask.CollectionsComparison.testRemove  avgt   25    0,260 ±    0,032  us/op

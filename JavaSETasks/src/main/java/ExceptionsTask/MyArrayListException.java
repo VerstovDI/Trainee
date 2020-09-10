@@ -51,7 +51,6 @@ public class MyArrayListException extends Exception {
         return (message != null) ? (s + ": " + message) : s;
     }
 
-
     @Override
     public String getMessage() {
         if (this.exceptionMessage == null) {
@@ -75,7 +74,6 @@ public class MyArrayListException extends Exception {
 
     @Override
     public synchronized Throwable getCause() {
-        //return (cause==this ? null : cause);
         return super.getCause();
     }
 

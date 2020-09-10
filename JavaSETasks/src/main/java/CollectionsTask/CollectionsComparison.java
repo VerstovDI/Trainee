@@ -1,26 +1,40 @@
 package CollectionsTask;
 
-import java.util.*;
+import org.openjdk.jmh.annotations.*;
 
+import java.util.*;
+import java.util.concurrent.TimeUnit;
+
+@BenchmarkMode(Mode.AverageTime)
+@OutputTimeUnit(TimeUnit.MICROSECONDS)
+@Warmup(iterations = 1)
 public class CollectionsComparison {
     private static Random rnd = new Random(System.nanoTime());
-    private static final long LOW    = 100;
-    private static final long MEDIUM = 100000;
-    private static final long HIGH   = 1000000000;
 
-    public void compare(ArrayList<Integer> arrayList, LinkedList<Integer> linkedList,
+    @Benchmark
+    public void benchAdd(ArrayListInitialState state) {
+        state.arrayList.add(new CollectionObject("Object" + String.valueOf(rnd.nextInt()),
+                state.iterations));
+    }
+
+    @Benchmark
+    public void benchAddAt(ArrayListInitialState state) {
+        state.arrayList.add((int) (state.iterations), new CollectionObject("Object" + String.valueOf(rnd.nextInt()),
+                state.iterations));
+    }
+
+    @Benchmark
+    public CollectionObject testGet(ArrayListInitialState state) {
+        return state.arrayList.get(state.objectsIndex);
+    }
+
+    @Benchmark
+    public boolean testRemove(ArrayListInitialState state) {
+        return state.arrayList.remove(state.collectionObject);
+    }
+
+    /*public void compare(ArrayList<Integer> arrayList, LinkedList<Integer> linkedList,
                                TreeSet<Integer> treeSet, HashSet<Integer> hashSet) {
-        // Скорость операций добавления
-        for (int i = 0; i < LOW; i++) {
-
-        }
-        // Скорость операций поиска
-        // Скорость операций удаления
-    }
-
-    private long testAddMethod(Collection<Integer> collection, long element, long iterations) {
-        long result = 0;
-        return result;
-    }
+    }*/
 
 }
