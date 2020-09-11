@@ -1,6 +1,7 @@
 package ExceptionsTask;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Locale;
 
 public class Main {
@@ -14,7 +15,6 @@ public class Main {
                 System.err.println(arrayListException.getLocalizedMessage());
                 System.err.println(arrayListException.getMessage());
                 arrayListException.printStackTrace();
-                System.out.println(arrayListException.getCause().toString());
             }
         }
     }

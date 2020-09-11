@@ -1,7 +1,7 @@
-package CollectionsTask;
+package CollectionsTask.CollectionsBenchmark.ArrayListBenchmark;
 
 public class CollectionObject {
-    protected String objectName;
+    public String objectName;
     public long objectId;
 
     public CollectionObject(String objectName, long objectId) {

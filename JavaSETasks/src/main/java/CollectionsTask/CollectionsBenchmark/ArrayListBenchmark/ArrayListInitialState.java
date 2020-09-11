@@ -1,12 +1,11 @@
-package CollectionsTask;
+package CollectionsTask.CollectionsBenchmark.ArrayListBenchmark;
 
 import org.openjdk.jmh.annotations.*;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
-@State(Scope.Benchmark)
+//@State(Scope.Benchmark)
 public class ArrayListInitialState {
     Random rnd = new Random(System.nanoTime());
     ArrayList<CollectionObject> arrayList = new ArrayList<>();
@@ -15,7 +14,7 @@ public class ArrayListInitialState {
             = new CollectionObject("Object1", 123);
     int objectsIndex = 0;
 
-    @Setup(Level.Trial)
+    //@Setup(Level.Trial)
     public void setUp() {
         for (long i = 0; i < iterations; i++) {
             arrayList.add(new CollectionObject(String.valueOf(rnd.nextInt()), rnd.nextInt()));

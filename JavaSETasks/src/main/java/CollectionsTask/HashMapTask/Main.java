@@ -13,7 +13,7 @@ public class Main {
         System.out.println(hashMap);
         // Способ 1
         HashMap<String, Integer> reversedHashMap = reverse(hashMap);
-
+        System.out.println(reversedHashMap);
         // Способ 2
         /*Map<Integer, String> swapped = hashMap
                 .entrySet()

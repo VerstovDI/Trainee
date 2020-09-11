@@ -1,0 +1,4 @@
+package CollectionsTask.CollectionsBenchmark.LinkedListBenchmark.jmh_generated;
+public class LinkedListBenchmark_jmhType extends LinkedListBenchmark_jmhType_B3 {
+}
+
