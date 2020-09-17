@@ -1,2 +1,2 @@
 # Trainee
-Trainee pet projects
+Trainee pet projects (SeaBattle Game, JavaSE tasks)
