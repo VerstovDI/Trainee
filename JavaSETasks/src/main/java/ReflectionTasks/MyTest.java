@@ -5,8 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target(value = ElementType.METHOD)
 @Retention(value = RetentionPolicy.RUNTIME)
-public @interface KeyPhrase {
-    String keyPhrase() default "Greenatom. Autumn";
+@Target(value = ElementType.METHOD)
+public @interface MyTest {
+    String name() default "DEFAULT_object_NAME";
 }
