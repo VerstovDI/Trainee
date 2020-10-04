@@ -15,5 +15,6 @@ public class Main2 {
         usersDAO.insert(new UserDTO(6, "Dima", Date.valueOf("1999-05-29"), 21, 2));
         usersDAO.update(new UserDTO(1,"Alina", Date.valueOf("1999-09-09"), 23, 2));
         usersDAO.delete(new UserDTO(6, "asdasda", Date.valueOf("1999-05-05"), 12, 2));
+        System.out.println(usersDAO.getAll());
     }
 }

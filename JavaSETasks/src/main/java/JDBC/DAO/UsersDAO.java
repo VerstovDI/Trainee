@@ -37,14 +37,25 @@ public class UsersDAO implements DAO<UserDTO> {
             userDTO.setSecurityLevel(resultSet.getInt("security_level"));
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+            try {
+                assert preparedStatement != null;
+                preparedStatement.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+            try {
+                resultSet.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
         }
-        try {
-            resultSet.close();
-            preparedStatement.close();
-            connection.close();
-        } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
-        } // обработка ошибок не до конца правильная, стоит условно
+        // обработка ошибок не до конца правильная, стоит условно
         return userDTO;
     }
 
@@ -52,7 +63,6 @@ public class UsersDAO implements DAO<UserDTO> {
     public boolean insert(UserDTO userDTO) {
         Connection connection = ConnectionFactory.getConnectionToDB();
         PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
         try {
             connection.createStatement();
             preparedStatement = connection
@@ -65,8 +75,20 @@ public class UsersDAO implements DAO<UserDTO> {
             preparedStatement.execute();
             System.out.println("Success!");
             return true;
-            } catch (SQLException sqlException) {
+        } catch (SQLException sqlException) {
             sqlException.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+            try {
+                assert preparedStatement != null;
+                preparedStatement.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
         }
         return false;
     }
@@ -75,7 +97,6 @@ public class UsersDAO implements DAO<UserDTO> {
     public boolean update(UserDTO userDTO) {
         Connection connection = ConnectionFactory.getConnectionToDB();
         PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
         try {
             connection.createStatement();
             preparedStatement = connection
@@ -89,6 +110,18 @@ public class UsersDAO implements DAO<UserDTO> {
             }
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+            try {
+                assert preparedStatement != null;
+                preparedStatement.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
         }
         return false;
     }
@@ -97,7 +130,6 @@ public class UsersDAO implements DAO<UserDTO> {
     public boolean delete(UserDTO userDTO) {
         Connection connection = ConnectionFactory.getConnectionToDB();
         PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
         try {
             connection.createStatement();
             preparedStatement = connection
@@ -108,12 +140,64 @@ public class UsersDAO implements DAO<UserDTO> {
             return true;
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+            try {
+                assert preparedStatement != null;
+                preparedStatement.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
         }
         return false;
     }
 
     @Override
     public ArrayList<UserDTO> getAll() {
-        return null;
+        Connection connection = ConnectionFactory.getConnectionToDB();
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        ArrayList<UserDTO> dtoArrayList = new ArrayList<>();
+        try {
+            connection.createStatement();
+            preparedStatement = connection
+                    .prepareStatement("SELECT * FROM \"Users\"");
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                dtoArrayList.add(new UserDTO(
+                        resultSet.getInt("user_id"),
+                        resultSet.getString("username"),
+                        resultSet.getDate("birthday_date"),
+                        resultSet.getInt("age"),
+                        resultSet.getInt("security_level")));
+            }
+            System.out.println("Success!");
+            return dtoArrayList;
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+            try {
+                assert preparedStatement != null;
+                preparedStatement.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+            try {
+                assert resultSet != null;
+                resultSet.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        return dtoArrayList;
     }
 }
