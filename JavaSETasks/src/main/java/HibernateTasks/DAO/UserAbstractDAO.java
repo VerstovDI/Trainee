@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface UserAbstractDAO<T> {
     Optional<T> getById(Integer id);
-    boolean insert(T adr);
+    Optional<T> insert(T adr);
     boolean update(T adr);
     Optional<T> delete(T adr);
     List<T> getAll();

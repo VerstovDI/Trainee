@@ -10,15 +10,15 @@ import java.sql.Date;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @Column(name = "user_id", nullable = false)
     private Integer userId;
-    @Column(name = "username")
+    @Column(name = "username", nullable = false)
     private String username;
-    @Column(name = "birthday_date")
+    @Column(name = "birthday_date", nullable = false)
     private Date birthdayDate;
-    @Column(name = "age")
+    @Column(name = "age", nullable = false)
     private Integer age;
-    @Column(name = "security_level")
+    @Column(name = "security_level", nullable = false)
     private Integer securityLevel;
 
     public User() { }
@@ -31,6 +31,15 @@ public class User {
         this.age = age;
         this.securityLevel = securityLevel;
     }
+
+    public User(String username, Date birthdayDate,
+                Integer age, Integer securityLevel) {
+        this.username = username;
+        this.birthdayDate = birthdayDate;
+        this.age = age;
+        this.securityLevel = securityLevel;
+    }
+    // TODO: как ставить через Java, Hibernate, не указывая id (serial)?
 
     public Integer getUserId() {
         return userId;
