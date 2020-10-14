@@ -7,7 +7,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-import java.sql.Date;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +28,7 @@ public class UserDAOImpl implements UserAbstractDAO<User> {
             query.setParameter("user_id", id);
             // User resUser = (User) query.getSingleResult();
             // getSingleResult() бросает исключение, если не найдет.
-            User resUser = (User) query.getResultList().get(0);
+            User resUser = query.getResultList().get(0);
             transaction.commit();
             return Optional.of(resUser);
         }
@@ -39,7 +40,7 @@ public class UserDAOImpl implements UserAbstractDAO<User> {
             Transaction transaction = session.beginTransaction();
             User lastUser = (User) session.createQuery("FROM User ORDER BY userId DESC")
                     .setMaxResults(1).uniqueResult();
-            System.out.println(lastUser);
+            //System.out.println(lastUser);
             /*Booking booking =  (Booking) session.createQuery("from Booking ORDER BY id DESC")
                     .setMaxResults(1).uniqueResult();*/
             user.setUserId(lastUser.getUserId()+1);
@@ -51,9 +52,9 @@ public class UserDAOImpl implements UserAbstractDAO<User> {
 
     @Override
     public boolean update(User user) {
+        boolean result = false;
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
-            int updatedId = user.getUserId();
             String hql = "UPDATE User SET username =:username," +
                     "birthdayDate =:birthday_date," +
                     "age =: age," +
@@ -65,24 +66,66 @@ public class UserDAOImpl implements UserAbstractDAO<User> {
             query.setParameter("age", user.getAge());
             query.setParameter("security_level", user.getSecurityLevel());
             query.setParameter("user_id", user.getUserId());
-            query.executeUpdate();
+            int resN = query.executeUpdate();
             transaction.commit();
-            return true;
+            if (resN > 0) {
+                result = true;
+            }
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+        return result;
+    }
+
+    @Override
+    public Optional<User> delete(User user) {
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            String hql = "DELETE FROM User WHERE id =:user_id";
+            Query query = session.createQuery(hql);
+            query.setParameter("user_id", user.getUserId());
+            int resN = query.executeUpdate();
+            transaction.commit();
+            if (resN == 1) {
+                return Optional.of(user);
+            }
+            return Optional.empty();
         }
     }
 
     @Override
-    public Optional<User> delete(User adr) {
-        return Optional.empty();
-    }
-
-    @Override
     public List<User> getAll() {
-        return null;
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            String hql = "FROM User";
+            Query<User> query = session.createQuery(hql, User.class);
+            // User resUser = (User) query.getSingleResult();
+            // getSingleResult() бросает исключение, если не найдет.
+            List<User> userList = query.getResultList();
+            transaction.commit();
+            return userList;
+        }
     }
 
     @Override
-    public List<User> getPage(int pageSize, int pageNumber) {
-        return null;
+    public List<User> getPage(int pageSize, int numberOfPage) {
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            String countQ = "SELECT count(U.userId) from User U";
+            Query<Long> countQuery = session.createQuery(countQ, Long.class);
+            Long countResults = countQuery.uniqueResult();
+            int lastPageNumber = (int) (countResults/pageSize) + 1;
+            if ((lastPageNumber < numberOfPage) || (numberOfPage <= 0)) {
+                return Collections.emptyList();
+            }
+            Query<User> selectQuery = session.createQuery("From User ORDER BY userId", User.class);
+            selectQuery.setFirstResult((numberOfPage-1) * pageSize);
+            selectQuery.setMaxResults(pageSize);
+            List<User> listPage = selectQuery.getResultList();
+            transaction.commit();
+            return listPage;
+        }
+
+
     }
 }

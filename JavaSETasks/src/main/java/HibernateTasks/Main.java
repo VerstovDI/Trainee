@@ -35,9 +35,16 @@ public class Main {
         // inserted id is calculated in INSERT function
         User userElla = new User(12,"Ella",
                 Date.valueOf("1999-10-10"), 27, 2);
-        //System.out.println(usr.insert(userElla));
+        System.out.println(usr.insert(userElla));
 
         // update
         System.out.println(usr.update(userElla)); // вообще по id обновляют
+
+        // delete
+        System.out.println(usr.delete(userElla));
+
+        System.out.println(usr.getAll());
+
+        System.out.println(usr.getPage(3, 1));
     }
 }

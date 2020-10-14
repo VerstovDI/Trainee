@@ -10,6 +10,5 @@ public interface UserAbstractDAO<T> {
     boolean update(T adr);
     Optional<T> delete(T adr);
     List<T> getAll();
-    List<T> getPage(int pageSize, int pageNumber);
-    // добавить пагинацию (getPage)
+    List<T> getPage(int pageSize, int numberOfPage);
 }
