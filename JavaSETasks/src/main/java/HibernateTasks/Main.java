@@ -1,6 +1,7 @@
 package HibernateTasks;
 
 import HibernateTasks.DAOImpl.UserDAOImpl;
+import HibernateTasks.DAOImpl.UserDAOImpl2;
 import HibernateTasks.Entity.User;
 import HibernateTasks.Util.SessionFactoryUtil;
 import org.hibernate.Session;
@@ -43,8 +44,17 @@ public class Main {
         // delete
         System.out.println(usr.delete(userElla));
 
+        // getAll
         System.out.println(usr.getAll());
 
+        // getPage
         System.out.println(usr.getPage(3, 1));
+
+        // via CriteriaAPI
+        UserDAOImpl2 usr2 = new UserDAOImpl2();
+        System.out.println("Criteria" + usr2.getById(4));
+
+        User userGrisha = new User("Grisha", Date.valueOf("2004-04-20"), 32, 1);
+        System.out.println(usr2.insert(userGrisha));
     }
 }
