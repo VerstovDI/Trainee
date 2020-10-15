@@ -3,12 +3,8 @@ package HibernateTasks;
 import HibernateTasks.DAOImpl.UserDAOImpl;
 import HibernateTasks.DAOImpl.UserDAOImpl2;
 import HibernateTasks.Entity.User;
-import HibernateTasks.Util.SessionFactoryUtil;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
 
 import java.sql.Date;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -31,7 +27,7 @@ public class Main {
         session.close();*/
 
         UserDAOImpl usr = new UserDAOImpl();
-        System.out.println(usr.getById(2).orElse(null));
+        System.out.println(usr.getById(56).orElse(null));
 
         // inserted id is calculated in INSERT function
         User userElla = new User(12,"Ella",
@@ -50,11 +46,24 @@ public class Main {
         // getPage
         System.out.println(usr.getPage(3, 1));
 
-        // via CriteriaAPI
+        // ----- via CriteriaAPI -----
+        // getById
         UserDAOImpl2 usr2 = new UserDAOImpl2();
-        System.out.println("Criteria" + usr2.getById(4));
-
+        System.out.println("Criteria" + usr2.getById(56));
+        // insert
         User userGrisha = new User("Grisha", Date.valueOf("2004-04-20"), 32, 1);
         System.out.println(usr2.insert(userGrisha));
+        // update
+        userGrisha.setUserId(46);
+        userGrisha.setAge(700);
+        userGrisha.setSecurityLevel(20);
+        usr2.update(userGrisha);
+        // delete
+        User userSergey = new User("Sergey", Date.valueOf("1980-10-10"), 500, 2);
+        usr2.delete(userSergey);
+        // getAll
+        System.out.println(usr2.getAll());
+        // getPage
+        System.out.println(usr2.getPage(3, 2));
     }
 }
