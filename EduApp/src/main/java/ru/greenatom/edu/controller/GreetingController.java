@@ -11,4 +11,10 @@ public class GreetingController {
         model.addAttribute("name", name);
         return "greeting";
     }
+
+    @GetMapping
+    public String main(Model model) {
+        model.addAttribute("something", "Hello, again!");
+        return "main";
+    }
 }
