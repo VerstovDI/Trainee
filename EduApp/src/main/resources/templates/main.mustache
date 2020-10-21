@@ -7,15 +7,21 @@
 <body>
 <div>Hello from main page!</div><!--</div>-->
 <div>
+    <form action="/logout" method="post">
+        <input type="submit" value="Sign Out"/>
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+    </form>
     <form method="post">
         <input type="text" name="text" placeholder="Введите сообщение!" />
         <input type="tag" name="tag" placeholder="Тэг" />
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
         <button type="submit">Добавить</button>
     </form>
     <br>
     <form method="post" action="filter">
         <input type="text" name="filter">
         <button type="submit">Найти</button>
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
     </form>
 </div>
 <div>Список сообщений</div>

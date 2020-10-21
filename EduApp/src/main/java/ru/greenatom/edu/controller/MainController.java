@@ -11,17 +11,16 @@ import ru.greenatom.edu.repository.MessageRepository;
 import java.util.List;
 
 @Controller
-public class GreetingController {
+public class MainController {
     @Autowired
     private MessageRepository messageRepo;
 
-    @GetMapping("/greeting")
-    public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
-        model.addAttribute("name", name);
+    @GetMapping("/")
+    public String greeting(Model model) {
         return "greeting";
     }
 
-    @GetMapping
+    @GetMapping("/main")
     public String main(Model model) {
         model.addAttribute("something", "Hello, again!");
         Iterable<Message> messageRepoAll = messageRepo.findAll();
@@ -29,7 +28,7 @@ public class GreetingController {
         return "main";
     }
 
-    @PostMapping
+    @PostMapping("/main")
     public String add(@RequestParam String text, @RequestParam String tag, Model model) {
         Message message = new Message(text, tag);
         messageRepo.save(message);
