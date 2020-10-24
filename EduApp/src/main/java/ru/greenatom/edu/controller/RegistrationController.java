@@ -13,8 +13,13 @@ import java.util.Collections;
 
 @Controller
 public class RegistrationController {
+    //@Autowired
+    private final UserRepository userRepository;
+
     @Autowired
-    private UserRepository userRepository;
+    public RegistrationController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @GetMapping("/registration")
     public String registration() {
@@ -24,14 +29,13 @@ public class RegistrationController {
     @PostMapping("/registration")
     public String addUser(User user, Model model) {
         User userFromDb = userRepository.findByUsername(user.getUsername());
-
         if (userFromDb != null) {
             model.addAttribute("message", "User already exists!");
             return "registration";
         }
-
-        userFromDb.setActive(true);
+        user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));
+        userRepository.save(user);
         return "redirect:/login";
     }
 }
