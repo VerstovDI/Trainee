@@ -23,10 +23,17 @@ public class MainController {
     }
 
     @GetMapping("/main")
-    public String main(Model model) {
+    public String main(@RequestParam(required = false, defaultValue = "") String filter,  Model model) {
         model.addAttribute("something", "Hello, again!");
-        Iterable<Message> messageRepoAll = messageRepo.findAll();
-        model.addAttribute("messages", messageRepoAll);
+        Iterable<Message> messages = messageRepo.findAll();
+
+        if (filter != null && !filter.isEmpty()) {
+            messages = messageRepo.findByTag(filter);
+        } else {
+            messages = messageRepo.findAll();
+        }
+        model.addAttribute("messages", messages);
+        model.addAttribute("filter", filter);
         return "main";
     }
 
@@ -41,18 +48,6 @@ public class MainController {
         // Так делать не надо вообще, но для обучения норм
         Iterable<Message> messageRepoAll = messageRepo.findAll();
         model.addAttribute("messages", messageRepoAll);
-        return "main";
-    }
-
-    @PostMapping("filter")
-    public String filter(@RequestParam String filter, Model model) {
-        Iterable<Message> messagesByTag;
-        if (filter != null && !filter.isEmpty()) {
-            messagesByTag = messageRepo.findByTag(filter);
-        } else {
-            messagesByTag = messageRepo.findAll();
-        }
-        model.addAttribute("messages", messagesByTag);
         return "main";
     }
 }
