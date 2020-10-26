@@ -1,21 +1,29 @@
 package ru.greenatom.edu.controller;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import ru.greenatom.edu.domain.Message;
 import ru.greenatom.edu.domain.User;
 import ru.greenatom.edu.repository.MessageRepository;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class MainController {
     @Autowired
     private MessageRepository messageRepo;
+
+    @Value("${upload.path}")
+    private String uploadPath;
 
     @GetMapping("/")
     public String greeting(Model model) {
@@ -42,10 +50,22 @@ public class MainController {
             @AuthenticationPrincipal User user,
             @RequestParam String text,
             @RequestParam String tag,
-            Model model) {
+            Model model,
+            @RequestParam("file") MultipartFile file) throws IOException {
         Message message = new Message(text, tag, user);
         messageRepo.save(message);
-        // Так делать не надо вообще, но для обучения норм
+
+        if (file != null) {
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdir();
+            }
+
+            String uuidFile = UUID.randomUUID().toString(); // создаем уникальное имя файла
+            String resultFileName = uuidFile + "." + file.getOriginalFilename();
+            file.transferTo(new File(uploadPath + "/" + resultFileName));
+        }
+
         Iterable<Message> messageRepoAll = messageRepo.findAll();
         model.addAttribute("messages", messageRepoAll);
         return "main";

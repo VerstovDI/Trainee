@@ -16,6 +16,7 @@ public class Message {
     //fetchType.eager - чтобы с сообщением сразу инфу об авторе получали!
     @JoinColumn(name = "user_id")
     private User author;
+    private String fileName;
 
     public Message() {
     }
@@ -58,9 +59,17 @@ public class Message {
         this.author = author;
     }
 
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
     /* Это закидоны из groovy.
-    Всё методы getSomething могут быть заменены на
-    обращение к полю (даже если оно не существует) с именем something */
+        Всё методы getSomething могут быть заменены на
+        обращение к полю (даже если оно не существует) с именем something */
     public String getAuthorName() {
         return author != null ? author.getUsername() : "<none>";
     }
