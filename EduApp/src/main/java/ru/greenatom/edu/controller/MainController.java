@@ -53,9 +53,8 @@ public class MainController {
             Model model,
             @RequestParam("file") MultipartFile file) throws IOException {
         Message message = new Message(text, tag, user);
-        messageRepo.save(message);
 
-        if (file != null) {
+        if (file != null & !file.getOriginalFilename().isEmpty()) {
             File uploadDir = new File(uploadPath);
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
@@ -64,7 +63,9 @@ public class MainController {
             String uuidFile = UUID.randomUUID().toString(); // создаем уникальное имя файла
             String resultFileName = uuidFile + "." + file.getOriginalFilename();
             file.transferTo(new File(uploadPath + "/" + resultFileName));
+            message.setFileName(resultFileName);
         }
+        messageRepo.save(message);
 
         Iterable<Message> messageRepoAll = messageRepo.findAll();
         model.addAttribute("messages", messageRepoAll);
