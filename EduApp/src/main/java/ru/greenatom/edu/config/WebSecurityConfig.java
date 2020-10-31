@@ -21,7 +21,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         this.userService = userService;
     }
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -31,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .formLogin()
                     .loginPage("/login")
-                    //.defaultSuccessUrl("/main", true)
+                    .defaultSuccessUrl("/main", true)
                     .permitAll()
                 .and()
                     .logout()
