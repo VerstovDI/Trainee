@@ -30,17 +30,18 @@ public class MailConfig {
 
     @Bean
     public JavaMailSender getMailSender() {
-        JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
-        javaMailSender.setHost(host);
-        javaMailSender.setPort(port);
-        javaMailSender.setProtocol(protocol);
-        javaMailSender.setUsername(username);
-        javaMailSender.setPassword(password);
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        mailSender.setHost(host);
+        mailSender.setPort(port);
+        mailSender.setUsername(username);
+        mailSender.setPassword(password);
+        mailSender.setProtocol(protocol);
 
-        Properties properties = javaMailSender.getJavaMailProperties();
+
+        Properties properties = mailSender.getJavaMailProperties();
         properties.setProperty("mail.transport.protocol", protocol);
-
         properties.setProperty("mail.debug", debug);
-        return javaMailSender;
+        properties.setProperty("mail.smtp.ssl.enable", "true");
+        return mailSender;
     }
 }

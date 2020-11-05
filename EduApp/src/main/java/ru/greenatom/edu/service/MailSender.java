@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import ru.greenatom.edu.config.MailConfig;
 
 @Service
 public class MailSender {
@@ -13,15 +15,15 @@ public class MailSender {
     private String username;
 
     @Autowired
-    private JavaMailSender javaMailSender;
+    private JavaMailSender mailSender;
 
+    @Async
     public void send(String emailTo, String subject, String message) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
-
         mailMessage.setFrom(username);
         mailMessage.setTo(emailTo);
         mailMessage.setSubject(subject);
         mailMessage.setText(message);
-        javaMailSender.send(mailMessage);
+        mailSender.send(mailMessage);
     }
 }

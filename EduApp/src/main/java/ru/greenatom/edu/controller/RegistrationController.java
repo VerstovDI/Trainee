@@ -26,7 +26,7 @@ public class RegistrationController {
 
     @PostMapping("/registration")
     public String addUser(User user, Model model) {
-        if (userService.addUser(user)) {
+        if (!userService.addUser(user)) {
             model.addAttribute("message", "User already exists!");
             return "registration";
         }
@@ -41,7 +41,6 @@ public class RegistrationController {
         } else {
             model.addAttribute("message", "Activation code wasn't found!");
         }
-
         return "login";
     }
 }

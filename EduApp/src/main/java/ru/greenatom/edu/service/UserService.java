@@ -16,12 +16,12 @@ import java.util.UUID;
 @Service
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
-    @Autowired
-    private MailSender mailSender;
+    private final MailSender mailSender;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, MailSender mailSender) {
         this.userRepository = userRepository;
+        this.mailSender = mailSender;
     }
 
     @Override
@@ -36,8 +36,8 @@ public class UserService implements UserDetailsService {
         }
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));
-        userRepository.save(user);
         user.setActivationCode(UUID.randomUUID().toString());
+        userRepository.save(user);
         if (!StringUtils.isEmpty(user.getEmail())) {
             String message = String.format("Hello, %s! \n"
                             + "Welcome to Sweater! Please, visit next link:"
