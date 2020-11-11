@@ -15,6 +15,8 @@ public class Message {
     @Length(max = 2048, message = "Message too long (more than 2Kb")
     private String text;
 
+    @NotBlank(message = "Please, fill the tag")
+    @Length(max = 255, message = "Message too long (more than 2Kb")
     private String tag;
 
     @ManyToOne(fetch = FetchType.EAGER) // одному пользователю несколько сообщений

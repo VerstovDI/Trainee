@@ -61,13 +61,10 @@ public class MainController {
         message.setAuthor(user);
 
         if (bindingResult.hasErrors()) {
-            Collector< FieldError, ?, Map<String, String>> collector =
-                    Collectors.toMap(
-                            fieldError -> fieldError.getField() + "Error",
-                            FieldError::getDefaultMessage
-                    );
-            Map<String, String> errorsMap = bindingResult.getFieldErrors().stream()
-                    .collect(collector);
+            Map<String, String> errorsMap = ControllerUtil.getErrors(bindingResult);
+            //model.mergeAttributes(errorsMap);
+            model.addAttribute("errorsMap", errorsMap);
+            model.addAttribute("message", message);
         } else {
 
             if (file != null & !file.getOriginalFilename().isEmpty()) {
@@ -83,6 +80,8 @@ public class MainController {
             }
             messageRepo.save(message);
         }
+
+        model.addAttribute("message", null);
 
         Iterable<Message> messageRepoAll = messageRepo.findAll();
         model.addAttribute("messages", messageRepoAll);

@@ -5,7 +5,7 @@
     <div class="form-row">
         <div class="form-group col-md-6">
             <form method="get" action="/main" class="form-inline">
-                <input type="text" name="filter" class="form-control" value="${filter!}" placeholder="Search by tag">
+                <input type="text" name="filter" class="form-control" value="${filter!}"placeholder="Search by tag">
                 <button type="submit" class="btn btn-primary ml-1">Find</button>
             </form>
         </div>
@@ -14,14 +14,30 @@
        aria-controls="collapseExample">
         Add new message
     </a>
-    <div class="collapse" id="collapseExample">
+    <div class="collapse <#if message??>show</#if>" id="collapseExample">
         <div class="form-group">
             <form method="post" enctype="multipart/form-data">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="text" placeholder="Enter message here"/>
+                    <input type="text" class="form-control <#if (errorsMap['textError'])??>is-invalid</#if>"
+                           value="<#if message??>${message.text}</#if>"
+                           name="text"
+                           placeholder="Enter message here"/>
+                    <#if textError??>
+                        <div class="invalid-feedback">
+                            ${textError}
+                        </div>
+                    </#if>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" name="tag" placeholder="Tag"/>
+                    <input type="text" class="form-control <#if (errorsMap['textError'])??>is-invalid</#if>"
+                           value="<#if message??>${message.tag}</#if>"
+                           name="tag"
+                           placeholder="Tag"/>
+                    <#if tagError??>
+                        <div class="invalid-feedback">
+                            ${tagError}
+                        </div>
+                    </#if>
                 </div>
                 <div class="custom-file">
                     <label class="custom-file-label" for="customFile">Choose file</label>
