@@ -28,6 +28,14 @@
                 </#if>
             </div>
         </div>
+        <div>
+            <div class="g-recaptcha" data-sitekey="6LdLM-IZAAAAAPfGx4KylRCKQZ14iT5X9cP9BYH5"></div>
+            <#if captchaError??>
+                <div class="alert alert-danger" role="alert">
+                    ${captchaError}
+                </div>
+            </#if>
+        </div>
 
         <#if isRegisterForm>
             <div class="form-group row">
