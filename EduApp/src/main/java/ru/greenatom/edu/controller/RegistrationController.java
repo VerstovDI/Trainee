@@ -36,7 +36,7 @@ public class RegistrationController {
         }
         if (bindingResult.hasErrors()) {
             Map<String, String> errorsMap = ControllerUtil.getErrors(bindingResult);
-            model.addAttribute("errorsMap", errorsMap);
+            model.mergeAttributes(errorsMap);
             return "registration";
         }
         if (!userService.addUser(user)) {

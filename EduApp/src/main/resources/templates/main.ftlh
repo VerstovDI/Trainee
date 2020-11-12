@@ -18,7 +18,8 @@
         <div class="form-group">
             <form method="post" enctype="multipart/form-data">
                 <div class="form-group">
-                    <input type="text" class="form-control <#if (errorsMap['textError'])??>is-invalid</#if>"
+                    <input type="text"
+                           class="form-control ${(textError??)?string('is-invalid', '')}"
                            value="<#if message??>${message.text}</#if>"
                            name="text"
                            placeholder="Enter message here"/>
@@ -29,7 +30,8 @@
                     </#if>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control <#if (errorsMap['textError'])??>is-invalid</#if>"
+                    <input type="text"
+                           class="form-control ${(tagError??)?string('is-invalid', '')}"
                            value="<#if message??>${message.tag}</#if>"
                            name="tag"
                            placeholder="Tag"/>

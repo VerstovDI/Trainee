@@ -17,4 +17,8 @@ public class ControllerUtil {
         return bindingResult.getFieldErrors().stream()
                 .collect(collector);
     }
+
+    static boolean checkForErrors(Map<String, String> errorsMap) {
+        return errorsMap.keySet().stream().anyMatch(key -> key.contains("Error"));
+    }
 }

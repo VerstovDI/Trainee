@@ -62,8 +62,7 @@ public class MainController {
 
         if (bindingResult.hasErrors()) {
             Map<String, String> errorsMap = ControllerUtil.getErrors(bindingResult);
-            //model.mergeAttributes(errorsMap);
-            model.addAttribute("errorsMap", errorsMap);
+            model.mergeAttributes(errorsMap);
             model.addAttribute("message", message);
         } else {
 
