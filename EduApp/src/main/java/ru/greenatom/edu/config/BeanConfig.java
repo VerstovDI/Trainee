@@ -1,5 +1,6 @@
 package ru.greenatom.edu.config;
 
+import org.springframework.boot.autoconfigure.flyway.FlywayMigrationStrategy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,5 +17,13 @@ public class BeanConfig {
     @Bean
     public RestTemplate getRestTemplate() {
         return new RestTemplate();
+    }
+
+    @Bean
+    public FlywayMigrationStrategy cleanMigrateStrategy() {
+        return flyway -> {
+            flyway.repair();
+            flyway.migrate();
+        };
     }
 }

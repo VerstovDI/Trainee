@@ -88,7 +88,13 @@
 <#macro logout>
     <form action="/logout" method="post">
         <div>
-            <button class="btn btn-primary" type="submit">Sign Out</button>
+            <button class="btn btn-primary" type="submit">
+                <#if user??>
+                    Sign Out
+                <#else>
+                    Log in
+                </#if>
+            </button>
         </div>
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
     </form>
