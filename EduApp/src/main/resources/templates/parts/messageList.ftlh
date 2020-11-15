@@ -9,9 +9,9 @@
                 </#if>
             </div>
             <div class="m-2"> <!-- Отступ со всех сторон на 2 единицы !-->
-                <span>#${message.text}</span><br/>
+                <span>${message.text}</span><br/>
             </div>
-            <i>${message.tag}</i>
+            <i>#${message.tag}</i>
             <!-- Это закидоны из groovy.
              Всё методы getSomething могут быть заменены на
              обращение к полю (даже если оно не существует) с именем something !-->

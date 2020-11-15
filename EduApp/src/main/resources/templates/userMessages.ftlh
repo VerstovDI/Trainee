@@ -3,7 +3,7 @@
 <@c.page>
     <h3>${userChannel.username}</h3>
     <#if !isCurrentUser>
-        <#if isSubcriber>
+        <#if isSubscriber>
             <a class="btn btn-info" href="/user/unsubscribe/${userChannel.id}">Unsubscribe</a>
         <#else>
             <a class="btn btn-info" href="/user/subscribe/${userChannel.id}">Subscribe</a>
@@ -16,7 +16,7 @@
                     <div class="card-body">
                         <div class="class-title">Subscriptions</div>
                         <h3 class="class-text">
-                            <a href="/user/subscriptions/${userChannel.id}">${subscriptionsCount}</a>
+                            <a href="/user/subscriptions/${userChannel.id}/list">${subscriptionsCount}</a>
                         </h3>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                     <div class="card-body">
                         <div class="card-title">Subscribers</div>
                         <div class="card-text">
-                            <a href="/user/subscribers/${userChannel.id}">${subscribersCount}</a>
+                            <a href="/user/subscribers/${userChannel.id}/list">${subscribersCount}</a>
                         </div>
                     </div>
                 </div>
