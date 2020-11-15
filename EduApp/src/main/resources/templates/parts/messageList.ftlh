@@ -5,7 +5,7 @@
         <div class="card my-3"> <!-- style="width: 18rem;"> !-->
             <div>
                 <#if message.getFileName()??>
-                    <img src="/img/${message.fileName}" class="card-img-top" alt="some img here"/>
+                    <img src="/img/${message.fileName}" class="card-img-top" alt="some img here" />
                 </#if>
             </div>
             <div class="m-2"> <!-- Отступ со всех сторон на 2 единицы !-->

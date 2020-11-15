@@ -26,7 +26,7 @@
                     <a class="nav-link" href="/user">User list</a>
                 </li>
             </#if>
-            <#if user?? && name!="unknown">
+            <#if user?? && name!="unknown" && name != "Guest">
                 <li class="nav-item">
                     <a class="nav-link" href="/user/profile">Profile</a>
                 </li>
@@ -39,10 +39,10 @@
                 Guest
             </#if>
         </div>
-        <#if name != "unknown">
+        <#if user??>
             <@l.logout/>
         <#else>
-            <a href="http://localhost:8080/login" class="btn btn-primary" role="button" aria-pressed="true">Login</a>
+            <a href="http://localhost:8080/login" class="btn btn-primary" role="button" aria-pressed="true">Sign In</a>
         </#if>
     </div>
 </nav>
