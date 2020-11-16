@@ -1,8 +1,8 @@
 <#include "security.ftlh">
 
-<div class="card-columns">
+<div class="card-columns" id="message-list">
     <#list messages as message> <!-- my-3 - Отступ сверху-снизу на 3 единицы !-->
-        <div class="card my-3"> <!-- style="width: 18rem;"> !-->
+        <div class="card my-3" data-id="${message.id}"> <!-- data-id - у каждой карточки свой атрибут - ее id"> !-->
             <div>
                 <#if message.getFileName()??>
                     <img src="/img/${message.fileName}" class="card-img-top" alt="some img here" />
