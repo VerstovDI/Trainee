@@ -1,7 +1,9 @@
 <#include "security.ftlh">
+<#import "pager.ftlh" as importedPager>
 
+<@importedPager.pager url page />
 <div class="card-columns" id="message-list">
-    <#list messages as message> <!-- my-3 - Отступ сверху-снизу на 3 единицы !-->
+    <#list page.content as message> <!-- my-3 - Отступ сверху-снизу на 3 единицы !-->
         <div class="card my-3" data-id="${message.id}"> <!-- data-id - у каждой карточки свой атрибут - ее id"> !-->
             <div>
                 <#if message.getFileName()??>
@@ -28,3 +30,4 @@
         </div>
     </#list>
 </div>
+</@importedPager.pager url page />
