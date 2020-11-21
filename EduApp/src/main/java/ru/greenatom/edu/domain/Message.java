@@ -1,9 +1,12 @@
 package ru.greenatom.edu.domain;
 
 import org.hibernate.validator.constraints.Length;
+import ru.greenatom.edu.domain.util.MessageHelper;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class Message {
@@ -24,6 +27,22 @@ public class Message {
     @JoinColumn(name = "user_id")
     private User author;
     private String fileName;
+
+    @ManyToMany
+    @JoinTable(
+            name = "message_likes",
+            joinColumns = { @JoinColumn(name = "message_id") },
+            inverseJoinColumns = { @JoinColumn(name = "user_id") }
+    )
+    private Set<User> likes = new HashSet<>();
+
+    public Set<User> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(Set<User> likes) {
+        this.likes = likes;
+    }
 
     public Message() {
     }
@@ -78,6 +97,6 @@ public class Message {
         Всё методы getSomething могут быть заменены на
         обращение к полю (даже если оно не существует) с именем something */
     public String getAuthorName() {
-        return author != null ? author.getUsername() : "<none>";
+        return MessageHelper.getAuthorName(author);
     }
 }

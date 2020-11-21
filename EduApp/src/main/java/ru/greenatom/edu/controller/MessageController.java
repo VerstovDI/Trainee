@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import ru.greenatom.edu.domain.Message;
 import ru.greenatom.edu.domain.User;
+import ru.greenatom.edu.domain.dto.MessageDto;
 import ru.greenatom.edu.repository.MessageRepository;
+import ru.greenatom.edu.service.MessageService;
 
 import javax.validation.Valid;
 import java.io.File;
@@ -28,12 +30,15 @@ import java.util.Set;
 import java.util.UUID;
 
 @Controller
-public class MainController {
+public class MessageController {
     // TODO: скорректировать userMessages после добавления pagination
     // TODO: скорректировать тесты после добавления pagination
     // TODO: начало пагинация в Path с 0, на странице с 1 - дофиксить
     @Autowired
     private MessageRepository messageRepo;
+
+    @Autowired
+    private MessageService messageService;
 
     @Value("${upload.path}")
     private String uploadPath;
@@ -46,15 +51,10 @@ public class MainController {
     @GetMapping("/main")
     public String main(@RequestParam(required = false, defaultValue = "") String filter,
                        Model model,
-                       @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
+                       @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable,
+                        @AuthenticationPrincipal User user) {
         model.addAttribute("something", "Hello, again!");
-        Page<Message> page;
-
-        if (filter != null && !filter.isEmpty()) {
-            page = messageRepo.findByTag(filter, pageable);
-        } else {
-            page = messageRepo.findAll(pageable);
-        }
+        Page<MessageDto> page = messageService.messageList(pageable, filter, user);
         model.addAttribute("page", page);
         model.addAttribute("url", "/main");
         model.addAttribute("filter", filter);
@@ -80,7 +80,7 @@ public class MainController {
         }
 
         model.addAttribute("message", null);
-        Page<Message> page = messageRepo.findAll(pageble);
+        Page<MessageDto> page = messageRepo.findAll(pageble, user);
         model.addAttribute("page", page);
         model.addAttribute("url", "/main");
         Iterable<Message> messageRepoAll = messageRepo.findAll();
@@ -103,26 +103,24 @@ public class MainController {
         messageRepo.save(message);
     }
 
-    @GetMapping("/user-messages/{user}")
+    @GetMapping("/user-messages/{author}")
     public String userMessages(
             @AuthenticationPrincipal User currentUser,
-            @PathVariable User user,
+            @PathVariable User author,
             Model model,
             @RequestParam(required = false) Message message,
             @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageble
     ) {
-        Page<Message> page;
-        page = messageRepo.findByAuthor(user, pageble);
-        Set<Message> messages = user.getMessages();
+        Page<MessageDto> page = messageService.messageListForUser(pageble, currentUser, author);
 
-        model.addAttribute("subscriptionsCount", user.getSubscriptions().size());
-        model.addAttribute("subscribersCount", user.getSubscribers().size());
-        model.addAttribute("isSubscriber", user.getSubscribers().contains(currentUser));
-        model.addAttribute("userChannel", user);
-        model.addAttribute("messages", messages);
+        model.addAttribute("subscriptionsCount", author.getSubscriptions().size());
+        model.addAttribute("subscribersCount", author.getSubscribers().size());
+        model.addAttribute("isSubscriber", author.getSubscribers().contains(currentUser));
+        model.addAttribute("userChannel", author);
+        model.addAttribute("page", page);
         model.addAttribute("message", message);
-        model.addAttribute("isCurrentUser", currentUser.equals(user));
-        model.addAttribute("url", "/user-messages/" + user.getId());
+        model.addAttribute("isCurrentUser", currentUser.equals(author));
+        model.addAttribute("url", "/user-messages/" + author.getId());
         model.addAttribute("page", page);
         return "userMessages";
     }
