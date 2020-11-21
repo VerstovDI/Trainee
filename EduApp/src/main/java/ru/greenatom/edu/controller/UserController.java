@@ -95,6 +95,7 @@ public class UserController {
     ) {
         model.addAttribute("userChannel", user);
         model.addAttribute("type", type);
+        // TODO: обновить всё в соответствие в пагинацией
 
         if ("subscriptions".equals(type)) {
             model.addAttribute("users", user.getSubscriptions());

@@ -76,7 +76,6 @@ public class MainController {
         }
 
         model.addAttribute("message", null);
-
         Iterable<Message> messageRepoAll = messageRepo.findAll();
         model.addAttribute("messages", messageRepoAll);
         return "main";
