@@ -29,6 +29,9 @@ import java.util.UUID;
 
 @Controller
 public class MainController {
+    // TODO: скорректировать userMessages после добавления pagination
+    // TODO: скорректировать тесты после добавления pagination
+    // TODO: начало пагинация в Path с 0, на странице с 1 - дофиксить
     @Autowired
     private MessageRepository messageRepo;
 
@@ -64,7 +67,8 @@ public class MainController {
             @Valid Message message,
             BindingResult bindingResult,
             Model model,
-            @RequestParam("file") MultipartFile file) throws IOException {
+            @RequestParam("file") MultipartFile file,
+            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageble) throws IOException {
         message.setAuthor(user);
 
         if (bindingResult.hasErrors()) {
@@ -76,6 +80,9 @@ public class MainController {
         }
 
         model.addAttribute("message", null);
+        Page<Message> page = messageRepo.findAll(pageble);
+        model.addAttribute("page", page);
+        model.addAttribute("url", "/main");
         Iterable<Message> messageRepoAll = messageRepo.findAll();
         model.addAttribute("messages", messageRepoAll);
         return "main";
@@ -101,8 +108,11 @@ public class MainController {
             @AuthenticationPrincipal User currentUser,
             @PathVariable User user,
             Model model,
-            @RequestParam(required = false) Message message
+            @RequestParam(required = false) Message message,
+            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageble
     ) {
+        Page<Message> page;
+        page = messageRepo.findByAuthor(user, pageble);
         Set<Message> messages = user.getMessages();
 
         model.addAttribute("subscriptionsCount", user.getSubscriptions().size());
@@ -112,6 +122,8 @@ public class MainController {
         model.addAttribute("messages", messages);
         model.addAttribute("message", message);
         model.addAttribute("isCurrentUser", currentUser.equals(user));
+        model.addAttribute("url", "/user-messages/" + user.getId());
+        model.addAttribute("page", page);
         return "userMessages";
     }
 

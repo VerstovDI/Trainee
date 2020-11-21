@@ -27,13 +27,4 @@ public class MvcConfig implements WebMvcConfigurer {
                 .addResourceLocations("classpath:/static/"); // ищет не где-то на компе,
         // а в списке классов, в ресурсах, в static
     }
-
-    @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-        PageableHandlerMethodArgumentResolver resolver
-                = new PageableHandlerMethodArgumentResolver();
-        resolver.setOneIndexedParameters(true);
-        argumentResolvers.add(resolver);
-        WebMvcConfigurer.super.addArgumentResolvers(argumentResolvers);
-    }
 }

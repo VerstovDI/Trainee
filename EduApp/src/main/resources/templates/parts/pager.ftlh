@@ -1,8 +1,8 @@
 <#macro pager url page>
     <#if page.getTotalPages() gt 7>
-        <assign
-        totalPages = page.getTotalPages()
-        pageNumber = page.getNumber() + 1
+        <#assign
+        totalPages = (page.getTotalPages())
+        pageNumber = (page.getNumber()) + 1
 
         head = (pageNumber > 4)?then([1, -1], [1, 2, 3])
         tail = (pageNumber < totalPages - 3)?then([-1, totalPages], [totalPages - 2, totalPages - 1, totalPages])
@@ -12,7 +12,7 @@
         body = head + bodyBefore + (pageNumber > 3 && pageNumber < totalPages - 2)?then([pageNumber], []) + bodyAfter + tail
             >
         <#else>
-            <assign body=1..page.getTotalPages()>
+            <#assign body=1..page.getTotalPages()>
     </#if>
     <div class="mt-3">
         <ul class="pagination">
